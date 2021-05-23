@@ -1,4 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
+    <item
+        android:id="@+id/homeFragment"
+        android:enabled="true"
+        android:icon="@drawable/ic_home"
+        android:title="@string/home" />
+    <item
+        android:id="@+id/searchFragment"
+        android:enabled="true"
+        android:icon="@drawable/ic_search"
+        android:title="@string/search" />
+    <item
+        android:id="@+id/addPostFragment"
+        android:enabled="true"
+        android:icon="@drawable/ic_add"
+        android:title="@string/add_post" />
+    <item
+        android:id="@+id/messageFragment"
+        android:enabled="true"
+        android:icon="@drawable/ic_send"
+        android:title="@string/chats" />
+    <item
+        android:id="@+id/profileFragment"
+        android:enabled="true"
+        android:icon="@drawable/ic_user"
+        android:title="@string/profile" />
+
 </menu>
