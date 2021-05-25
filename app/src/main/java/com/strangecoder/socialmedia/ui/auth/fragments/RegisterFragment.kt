@@ -7,11 +7,11 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.strangecoder.socialmedia.R
-import com.strangecoder.socialmedia.databinding.FragmentLoginBinding
+import com.strangecoder.socialmedia.databinding.FragmentRegisterBinding
 
-class LoginFragment : Fragment() {
+class RegisterFragment : Fragment() {
 
-    private var _binding: FragmentLoginBinding? = null
+    private var _binding: FragmentRegisterBinding? = null
     private val binding get() = _binding!!
 
     override fun onCreateView(
@@ -19,7 +19,7 @@ class LoginFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = FragmentLoginBinding.inflate(inflater, container, false)
+        _binding = FragmentRegisterBinding.inflate(inflater, container, false)
         return binding.root
     }
 
@@ -29,8 +29,8 @@ class LoginFragment : Fragment() {
         if (findNavController().previousBackStackEntry != null) {
             findNavController().popBackStack()
 
-        } else binding.tvRegisterNewAccount.setOnClickListener {
-            findNavController().navigate(R.id.action_loginFragment_to_registerFragment)
+        } else binding.tvLogin.setOnClickListener {
+            findNavController().navigate(R.id.action_registerFragment_to_loginFragment)
         }
     }
 
@@ -38,5 +38,4 @@ class LoginFragment : Fragment() {
         super.onDestroyView()
         _binding = null
     }
-
 }

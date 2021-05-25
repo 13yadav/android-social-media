@@ -1,7 +1,8 @@
-package com.strangecoder.socialmedia
+package com.strangecoder.socialmedia.ui.auth
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import com.strangecoder.socialmedia.R
 
 class AuthActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
