@@ -26,10 +26,7 @@ class LoginFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        if (findNavController().previousBackStackEntry != null) {
-            findNavController().popBackStack()
-
-        } else binding.tvRegisterNewAccount.setOnClickListener {
+        binding.tvRegisterNewAccount.setOnClickListener {
             findNavController().navigate(R.id.action_loginFragment_to_registerFragment)
         }
     }
