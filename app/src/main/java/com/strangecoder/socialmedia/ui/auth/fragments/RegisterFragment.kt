@@ -7,7 +7,6 @@ import android.view.ViewGroup
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.strangecoder.socialmedia.R
 import com.strangecoder.socialmedia.databinding.FragmentRegisterBinding
@@ -60,6 +59,7 @@ class RegisterFragment : Fragment() {
                 binding.registerProgressBar.isVisible = true
             },
             onSuccess = {
+                binding.registerProgressBar.isVisible = false
                 snackBar(getString(R.string.success_registration))
             }
         ))

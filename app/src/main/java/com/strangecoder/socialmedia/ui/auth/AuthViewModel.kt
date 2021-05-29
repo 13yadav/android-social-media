@@ -30,7 +30,6 @@ class AuthViewModel @Inject constructor(
     private val _registerStatus = MutableLiveData<Event<Resource<AuthResult>>>()
     val registerStatus: LiveData<Event<Resource<AuthResult>>> = _registerStatus
 
-
     fun registerUser(email: String, username: String, password: String, confirmPassword: String) {
         val error = if (email.isEmpty() || username.isEmpty() || password.isEmpty()) {
             applicationContext.getString(R.string.error_input_empty)
@@ -56,4 +55,21 @@ class AuthViewModel @Inject constructor(
             _registerStatus.postValue(Event(result))
         }
     }
+
+    private val _loginStatus = MutableLiveData<Event<Resource<AuthResult>>>()
+    val loginStatus: LiveData<Event<Resource<AuthResult>>> = _loginStatus
+
+    fun loginUser(email: String, password: String) {
+        if (email.isEmpty() || password.isEmpty()) {
+            val error = applicationContext.getString(R.string.error_input_empty)
+            _loginStatus.postValue(Event(Resource.Error(error)))
+        } else {
+            _loginStatus.postValue(Event(Resource.Loading()))
+            viewModelScope.launch(dispatcher) {
+                val result = repository.loginUser(email, password)
+                _loginStatus.postValue(Event(result))
+            }
+        }
+    }
+
 }

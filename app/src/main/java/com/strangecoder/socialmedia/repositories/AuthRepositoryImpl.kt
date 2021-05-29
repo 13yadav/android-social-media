@@ -33,6 +33,11 @@ class AuthRepositoryImpl @Inject constructor() : AuthRepository {
     }
 
     override suspend fun loginUser(email: String, password: String): Resource<AuthResult> {
-        TODO("Not yet implemented")
+        return withContext(Dispatchers.IO) {
+            safeCall {
+                val result = auth.signInWithEmailAndPassword(email, password).await()
+                Resource.Success(result)
+            }
+        }
     }
 }
