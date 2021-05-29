@@ -2,17 +2,15 @@ package com.strangecoder.socialmedia.di
 
 import com.strangecoder.socialmedia.repositories.AuthRepository
 import com.strangecoder.socialmedia.repositories.AuthRepositoryImpl
+import dagger.Binds
 import dagger.Module
-import dagger.Provides
 import dagger.hilt.InstallIn
-import dagger.hilt.android.components.ActivityComponent
-import dagger.hilt.android.scopes.ActivityScoped
+import dagger.hilt.android.components.ViewModelComponent
 
 @Module
-@InstallIn(ActivityComponent::class)
-object AuthModule {
+@InstallIn(ViewModelComponent::class)
+abstract class AuthModule {
 
-    @ActivityScoped
-    @Provides
-    fun providesAuthRepository() = AuthRepositoryImpl() as AuthRepository
+    @Binds
+    abstract fun bindAuthRepository(impl: AuthRepositoryImpl): AuthRepository
 }

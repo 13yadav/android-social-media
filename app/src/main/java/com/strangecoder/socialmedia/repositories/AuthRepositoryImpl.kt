@@ -9,8 +9,9 @@ import com.strangecoder.socialmedia.other.safeCall
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.tasks.await
 import kotlinx.coroutines.withContext
+import javax.inject.Inject
 
-class AuthRepositoryImpl : AuthRepository {
+class AuthRepositoryImpl @Inject constructor() : AuthRepository {
 
     val auth = FirebaseAuth.getInstance()
     val users = FirebaseFirestore.getInstance().collection("users")

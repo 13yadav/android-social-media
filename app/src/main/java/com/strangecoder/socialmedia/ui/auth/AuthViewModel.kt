@@ -36,11 +36,11 @@ class AuthViewModel @Inject constructor(
             applicationContext.getString(R.string.error_input_empty)
         } else if (password != confirmPassword) {
             applicationContext.getString(R.string.error_incorrectly_repeated_password)
-        } else if (username.length < MAX_USERNAME_LENGTH) {
+        } else if (username.length < MIN_USERNAME_LENGTH) {
             applicationContext.getString(R.string.error_username_too_short, MIN_USERNAME_LENGTH)
         } else if (username.length > MAX_USERNAME_LENGTH) {
             applicationContext.getString(R.string.error_username_too_long, MAX_USERNAME_LENGTH)
-        } else if (password.length > MIN_PASSWORD_LENGTH) {
+        } else if (password.length < MIN_PASSWORD_LENGTH) {
             applicationContext.getString(R.string.error_password_too_short, MIN_PASSWORD_LENGTH)
         } else if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
             applicationContext.getString(R.string.error_not_a_valid_email)
@@ -51,7 +51,7 @@ class AuthViewModel @Inject constructor(
             return
         }
         _registerStatus.postValue(Event(Resource.Loading()))
-        viewModelScope.launch {
+        viewModelScope.launch(dispatcher) {
             val result = repository.registerUser(email, username, password)
             _registerStatus.postValue(Event(result))
         }
