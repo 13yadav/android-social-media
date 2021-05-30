@@ -8,14 +8,15 @@ import com.google.firebase.storage.ktx.storage
 import com.strangecoder.socialmedia.data.entities.Post
 import com.strangecoder.socialmedia.other.Resource
 import com.strangecoder.socialmedia.other.safeCall
-import dagger.hilt.android.scopes.ActivityScoped
+import dagger.hilt.android.scopes.ViewModelScoped
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.tasks.await
 import kotlinx.coroutines.withContext
 import java.util.*
+import javax.inject.Inject
 
-@ActivityScoped
-class MainRepositoryImpl : MainRepository {
+@ViewModelScoped
+class MainRepositoryImpl @Inject constructor() : MainRepository {
 
     private val auth = FirebaseAuth.getInstance()
     private val firestore = FirebaseFirestore.getInstance()
