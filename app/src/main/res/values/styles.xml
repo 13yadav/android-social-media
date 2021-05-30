@@ -34,4 +34,9 @@
         <item name="cornerSize">50%</item>
     </style>
 
+    <style name="Toolbar_Text_Appearance">
+        <item name="android:textSize">24sp</item>
+        <item name="android:fontFamily">@font/nunito_bold</item>
+    </style>
+
 </resources>

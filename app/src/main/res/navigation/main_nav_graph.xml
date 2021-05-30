@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/main_nav_graph"
+    app:startDestination="@id/homeFragment">
+
+    <fragment
+        android:id="@+id/homeFragment"
+        android:name="com.strangecoder.socialmedia.ui.main.fragments.HomeFragment"
+        android:label="Home" />
+    <fragment
+        android:id="@+id/searchFragment"
+        android:name="com.strangecoder.socialmedia.ui.main.fragments.SearchFragment"
+        android:label="Search" />
+    <fragment
+        android:id="@+id/createPostFragment"
+        android:name="com.strangecoder.socialmedia.ui.main.fragments.CreatePostFragment"
+        android:label="Create Post" />
+    <fragment
+        android:id="@+id/messagesFragment"
+        android:name="com.strangecoder.socialmedia.ui.main.fragments.MessagesFragment"
+        android:label="Messages" />
+    <fragment
+        android:id="@+id/editProfileFragment"
+        android:name="com.strangecoder.socialmedia.ui.main.fragments.EditProfileFragment"
+        android:label="Edit Profile" />
+    <fragment
+        android:id="@+id/profileFragment"
+        android:name="com.strangecoder.socialmedia.ui.main.fragments.ProfileFragment"
+        android:label="Profile" />
+</navigation>
