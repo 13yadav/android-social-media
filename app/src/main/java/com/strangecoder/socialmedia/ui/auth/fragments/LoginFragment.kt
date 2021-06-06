@@ -1,6 +1,5 @@
 package com.strangecoder.socialmedia.ui.auth.fragments
 
-import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -9,12 +8,12 @@ import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import com.google.firebase.auth.FirebaseAuth
 import com.strangecoder.socialmedia.R
 import com.strangecoder.socialmedia.databinding.FragmentLoginBinding
 import com.strangecoder.socialmedia.other.EventObserver
-import com.strangecoder.socialmedia.ui.auth.AuthViewModel
-import com.strangecoder.socialmedia.ui.main.MainActivity
-import com.strangecoder.socialmedia.ui.snackBar
+import com.strangecoder.socialmedia.ui.auth.viewmodels.AuthViewModel
+import com.strangecoder.socialmedia.ui.uiutils.snackBar
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -56,17 +55,20 @@ class LoginFragment : Fragment() {
             },
             onSuccess = {
                 binding.loginProgressBar.isVisible = false
-                Intent(requireContext(), MainActivity::class.java).also {
-                    startActivity(it)
-                    requireActivity().finish()
-                }
+                findNavController().navigate(R.id.action_loginFragment_to_homeFragment)
             }
         ))
+    }
+
+    override fun onStart() {
+        super.onStart()
+        if (FirebaseAuth.getInstance().currentUser != null) {
+            findNavController().navigate(R.id.action_loginFragment_to_homeFragment)
+        }
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
     }
-
 }

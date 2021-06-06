@@ -1,4 +1,4 @@
-package com.strangecoder.socialmedia.ui.auth
+package com.strangecoder.socialmedia.ui.auth.viewmodels
 
 import android.content.Context
 import android.util.Patterns

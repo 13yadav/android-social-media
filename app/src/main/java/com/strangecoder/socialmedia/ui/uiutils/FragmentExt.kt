@@ -1,4 +1,4 @@
-package com.strangecoder.socialmedia.ui
+package com.strangecoder.socialmedia.ui.uiutils
 
 import androidx.fragment.app.Fragment
 import com.google.android.material.snackbar.Snackbar

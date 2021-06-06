@@ -11,7 +11,7 @@ import androidx.navigation.fragment.findNavController
 import com.strangecoder.socialmedia.databinding.FragmentCreatePostBinding
 import com.strangecoder.socialmedia.other.EventObserver
 import com.strangecoder.socialmedia.ui.main.viewmodels.CreatePostViewModel
-import com.strangecoder.socialmedia.ui.snackBar
+import com.strangecoder.socialmedia.ui.uiutils.snackBar
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
