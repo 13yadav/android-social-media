@@ -40,19 +40,19 @@ class ProfileFragment : Fragment() {
 
     }
 
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        inflater.inflate(R.menu.menu_main, menu)
+    }
+
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when (item.itemId) {
+        return when (item.itemId) {
             R.id.actionLogout -> {
                 FirebaseAuth.getInstance().signOut()
                 findNavController().navigate(R.id.action_profileFragment_to_loginFragment)
+                true
             }
+            else -> super.onOptionsItemSelected(item)
         }
-        return super.onOptionsItemSelected(item)
-    }
-
-    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        inflater.inflate(R.menu.menu_main, menu)
-        super.onCreateOptionsMenu(menu, inflater)
     }
 
     override fun onDestroyView() {

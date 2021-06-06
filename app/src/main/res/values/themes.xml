@@ -25,11 +25,6 @@
 
     </style>
 
-    <style name="ToolbarStyle">
-        <item name="android:background">@color/primaryColor</item>
-        <item name="titleTextAppearance">@style/Toolbar_Text_Appearance</item>
-    </style>
-
     <style name="ThemeOverlay.App.Button.TextButton" parent="">
         <item name="colorPrimary">@color/secondaryColor</item>
     </style>

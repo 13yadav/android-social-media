@@ -37,27 +37,27 @@
     <fragment
         android:id="@+id/homeFragment"
         android:name="com.strangecoder.socialmedia.ui.main.fragments.HomeFragment"
-        android:label="HomeFragment" />
+        android:label="Home" />
     <fragment
         android:id="@+id/createPostFragment"
         android:name="com.strangecoder.socialmedia.ui.main.fragments.CreatePostFragment"
-        android:label="CreatePostFragment" />
+        android:label="Create Post" />
     <fragment
         android:id="@+id/editProfileFragment"
         android:name="com.strangecoder.socialmedia.ui.main.fragments.EditProfileFragment"
-        android:label="EditProfileFragment" />
+        android:label="Edit Profile" />
     <fragment
         android:id="@+id/messagesFragment"
         android:name="com.strangecoder.socialmedia.ui.main.fragments.MessagesFragment"
-        android:label="MessagesFragment" />
+        android:label="Messages" />
     <fragment
         android:id="@+id/searchFragment"
         android:name="com.strangecoder.socialmedia.ui.main.fragments.SearchFragment"
-        android:label="SearchFragment" />
+        android:label="Search" />
     <fragment
         android:id="@+id/profileFragment"
         android:name="com.strangecoder.socialmedia.ui.main.fragments.ProfileFragment"
-        android:label="ProfileFragment" >
+        android:label="Profile">
         <action
             android:id="@+id/action_profileFragment_to_loginFragment"
             app:destination="@id/loginFragment"

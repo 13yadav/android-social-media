@@ -37,11 +37,8 @@
     <style name="Toolbar_Text_Appearance">
         <item name="android:textSize">24sp</item>
         <item name="android:fontFamily">@font/nunito_bold</item>
-        <item name="titleTextStyle">@style/ToolbarTitleStyle</item>
-    </style>
-
-    <style name="ToolbarTitleStyle">
-        <item name="titleTextColor">@color/white</item>
+        <item name="fontFamily">@font/nunito_bold</item>
+        <item name="background">?attr/colorPrimaryDark</item>
     </style>
 
 </resources>
