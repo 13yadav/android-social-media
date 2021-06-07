@@ -14,6 +14,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.RequestManager
+import com.google.android.material.transition.MaterialSharedAxis
 import com.strangecoder.socialmedia.R
 import com.strangecoder.socialmedia.databinding.FragmentCreatePostBinding
 import com.strangecoder.socialmedia.other.EventObserver
@@ -39,12 +40,16 @@ class CreatePostFragment : Fragment() {
     private val cropActivityResultContract = object : ActivityResultContract<String, Uri?>() {
         override fun createIntent(context: Context, input: String?): Intent {
             return CropImage.activity()
-                .setAspectRatio(16, 9)
+                .setAspectRatio(4, 3)
                 .setGuidelines(CropImageView.Guidelines.ON)
                 .getIntent(requireContext())
         }
 
         override fun parseResult(resultCode: Int, intent: Intent?): Uri? {
+            if (intent == null) {
+                snackBar("Failed to get image!")
+                return null
+            }
             return CropImage.getActivityResult(intent).uri
         }
     }
@@ -53,6 +58,10 @@ class CreatePostFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        enterTransition = MaterialSharedAxis(MaterialSharedAxis.Z, true)
+        exitTransition = MaterialSharedAxis(MaterialSharedAxis.Z, false)
+
         cropContent = registerForActivityResult(cropActivityResultContract) {
             it?.let {
                 viewModel.setCurImageIri(it)
