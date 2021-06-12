@@ -14,8 +14,7 @@ import com.strangecoder.socialmedia.databinding.ListItemPostBinding
 import javax.inject.Inject
 
 class PostsAdapter @Inject constructor(
-    private val glide: RequestManager,
-    private val interaction: Interaction
+    private val glide: RequestManager
 ) : RecyclerView.Adapter<PostsAdapter.PostViewHolder>() {
 
     private val diffCallback = object : DiffUtil.ItemCallback<Post>() {
@@ -37,21 +36,52 @@ class PostsAdapter @Inject constructor(
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PostViewHolder {
         return PostViewHolder(
             ListItemPostBinding.inflate(LayoutInflater.from(parent.context), parent, false),
-            glide,
-            interaction
+            glide
         )
     }
 
     override fun onBindViewHolder(holder: PostViewHolder, position: Int) {
-        holder.bind(posts[position])
+        val binding = holder.binding
+        val post = posts[position]
+        holder.bind(post)
+
+        binding.tvPostAuthor.setOnClickListener {
+            onUserClickListener?.let { click ->
+                click(post.authorUid)
+            }
+        }
+        binding.ivAuthorProfileImage.setOnClickListener {
+            onUserClickListener?.let { click ->
+                click(post.authorUid)
+            }
+        }
+        binding.tvLikedBy.setOnClickListener {
+            onLikedByClickListener?.let { click ->
+                click(post)
+            }
+        }
+        binding.ibLike.setOnClickListener {
+            onLikeClickListener?.let { click ->
+                click(post, holder.layoutPosition)
+            }
+        }
+        binding.ibComments.setOnClickListener {
+            onCommentsClickListener?.let { click ->
+                click(post)
+            }
+        }
+        binding.ibDeletePost.setOnClickListener {
+            onDeletePostClickListener?.let { click ->
+                click(post)
+            }
+        }
     }
 
     override fun getItemCount() = posts.size
 
     class PostViewHolder(
-        private val binding: ListItemPostBinding,
+        val binding: ListItemPostBinding,
         private val glide: RequestManager,
-        private val interaction: Interaction
     ) : RecyclerView.ViewHolder(binding.root) {
 
         fun bind(post: Post) {
@@ -72,33 +102,32 @@ class PostsAdapter @Inject constructor(
                     R.drawable.ic_heart_filled
                 } else R.drawable.ic_heart_outline
             )
-
-            binding.tvPostAuthor.setOnClickListener {
-                interaction.onUserClickListener(post.authorUid, adapterPosition)
-            }
-            binding.ivAuthorProfileImage.setOnClickListener {
-                interaction.onUserClickListener(post.authorUid, adapterPosition)
-            }
-            binding.tvLikedBy.setOnClickListener {
-                interaction.onLikedByClickListener(post, adapterPosition)
-            }
-            binding.ibLike.setOnClickListener {
-                interaction.onLikeClickListener(post, adapterPosition)
-            }
-            binding.ibComments.setOnClickListener {
-                interaction.onCommentsClickListener(post, adapterPosition)
-            }
-            binding.ibDeletePost.setOnClickListener {
-                interaction.onDeletePostClickListener(post, adapterPosition)
-            }
         }
     }
 
-    interface Interaction {
-        fun onLikeClickListener(item: Post, position: Int)
-        fun onUserClickListener(uid: String, position: Int)
-        fun onDeletePostClickListener(item: Post, position: Int)
-        fun onLikedByClickListener(item: Post, position: Int)
-        fun onCommentsClickListener(item: Post, position: Int)
+    private var onLikeClickListener: ((Post, Int) -> Unit)? = null
+    private var onUserClickListener: ((String) -> Unit)? = null
+    private var onDeletePostClickListener: ((Post) -> Unit)? = null
+    private var onLikedByClickListener: ((Post) -> Unit)? = null
+    private var onCommentsClickListener: ((Post) -> Unit)? = null
+
+    fun setOnLikeClickListener(listener: (Post, Int) -> Unit) {
+        onLikeClickListener = listener
+    }
+
+    fun setOnUserClickListener(listener: (String) -> Unit) {
+        onUserClickListener = listener
+    }
+
+    fun setOnDeletePostClickListener(listener: (Post) -> Unit) {
+        onDeletePostClickListener = listener
+    }
+
+    fun setOnLikedByClickListener(listener: (Post) -> Unit) {
+        onLikedByClickListener = listener
+    }
+
+    fun setOnCommentsClickListener(listener: (Post) -> Unit) {
+        onCommentsClickListener = listener
     }
 }

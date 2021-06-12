@@ -1,41 +1,37 @@
 package com.strangecoder.socialmedia.ui.main.fragments
 
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
-import androidx.fragment.app.Fragment
+import android.widget.ProgressBar
+import androidx.fragment.app.viewModels
+import com.strangecoder.socialmedia.R
 import com.strangecoder.socialmedia.databinding.FragmentHomeBinding
+import com.strangecoder.socialmedia.ui.main.fragments.base.BasePostFragment
+import com.strangecoder.socialmedia.ui.main.viewmodels.BasePostViewModel
+import com.strangecoder.socialmedia.ui.main.viewmodels.HomeViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class HomeFragment : Fragment() {
+class HomeFragment : BasePostFragment<FragmentHomeBinding>() {
 
-    private var _binding: FragmentHomeBinding? = null
-    private val binding get() = _binding!!
-//    private val viewModel: AuthViewModel by viewModels()
+    override val postProgressBar: ProgressBar
+        get() = binding.allPostsProgressBar
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        _binding = FragmentHomeBinding.inflate(inflater, container, false)
-        return binding.root
-    }
+    override val basePostViewModel: BasePostViewModel
+        get() {
+            val vm: HomeViewModel by viewModels()
+            return vm
+        }
+
+    override fun getFragmentView() = R.layout.fragment_home
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        subscribeToObservers()
+        setUpRecyclerView()
     }
 
-    private fun subscribeToObservers() {
-
-    }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
+    private fun setUpRecyclerView() = binding.rvAllPosts.apply {
+        adapter = postAdapter
+        itemAnimator = null
     }
 }
