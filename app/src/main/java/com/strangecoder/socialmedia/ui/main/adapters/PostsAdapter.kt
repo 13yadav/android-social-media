@@ -14,7 +14,8 @@ import com.strangecoder.socialmedia.databinding.ListItemPostBinding
 import javax.inject.Inject
 
 class PostsAdapter @Inject constructor(
-    private val glide: RequestManager
+    private val glide: RequestManager,
+    private val interaction: Interaction
 ) : RecyclerView.Adapter<PostsAdapter.PostViewHolder>() {
 
     private val diffCallback = object : DiffUtil.ItemCallback<Post>() {
@@ -36,7 +37,8 @@ class PostsAdapter @Inject constructor(
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PostViewHolder {
         return PostViewHolder(
             ListItemPostBinding.inflate(LayoutInflater.from(parent.context), parent, false),
-            glide
+            glide,
+            interaction
         )
     }
 
@@ -48,9 +50,10 @@ class PostsAdapter @Inject constructor(
 
     class PostViewHolder(
         private val binding: ListItemPostBinding,
-        private val glide: RequestManager
-    ) :
-        RecyclerView.ViewHolder(binding.root) {
+        private val glide: RequestManager,
+        private val interaction: Interaction
+    ) : RecyclerView.ViewHolder(binding.root) {
+
         fun bind(post: Post) {
             glide.load(post.imageUrl).into(binding.ivPostImage)
             glide.load(post.authorProfilePictureUrl).into(binding.ivAuthorProfileImage)
@@ -71,39 +74,31 @@ class PostsAdapter @Inject constructor(
             )
 
             binding.tvPostAuthor.setOnClickListener {
-                onUserClickListener?.let { click ->
-                    click(post.authorUid)
-                }
+                interaction.onUserClickListener(post.authorUid, adapterPosition)
             }
             binding.ivAuthorProfileImage.setOnClickListener {
-                onUserClickListener?.let { click ->
-                    click(post.authorUid)
-                }
+                interaction.onUserClickListener(post.authorUid, adapterPosition)
             }
             binding.tvLikedBy.setOnClickListener {
-                onLikedByClickListener?.let { click ->
-                    click(post)
-                }
+                interaction.onLikedByClickListener(post, adapterPosition)
             }
             binding.ibLike.setOnClickListener {
-                onLikeClickListener?.let { click ->
-                    click(post, holder.layoutPosition)
-                }
+                interaction.onLikeClickListener(post, adapterPosition)
             }
             binding.ibComments.setOnClickListener {
-                onCommentsClickListener?.let { click ->
-                    click(post)
-                }
+                interaction.onCommentsClickListener(post, adapterPosition)
             }
             binding.ibDeletePost.setOnClickListener {
-                onDeletePostClickListener?.let { click ->
-                    click(post)
-                }
+                interaction.onDeletePostClickListener(post, adapterPosition)
             }
         }
     }
 
     interface Interaction {
-        fun onUserClickListener(item: Post, position: Int)
+        fun onLikeClickListener(item: Post, position: Int)
+        fun onUserClickListener(uid: String, position: Int)
+        fun onDeletePostClickListener(item: Post, position: Int)
+        fun onLikedByClickListener(item: Post, position: Int)
+        fun onCommentsClickListener(item: Post, position: Int)
     }
 }

@@ -13,7 +13,7 @@ import com.strangecoder.socialmedia.R
 import com.strangecoder.socialmedia.databinding.FragmentLoginBinding
 import com.strangecoder.socialmedia.other.EventObserver
 import com.strangecoder.socialmedia.ui.auth.viewmodels.AuthViewModel
-import com.strangecoder.socialmedia.ui.uiutils.snackBar
+import com.strangecoder.socialmedia.ui.viewutils.snackBar
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
