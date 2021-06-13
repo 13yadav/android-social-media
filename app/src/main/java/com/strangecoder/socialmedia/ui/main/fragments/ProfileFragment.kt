@@ -10,7 +10,7 @@ import com.strangecoder.socialmedia.R
 import com.strangecoder.socialmedia.databinding.FragmentProfileBinding
 import com.strangecoder.socialmedia.other.EventObserver
 import com.strangecoder.socialmedia.ui.main.fragments.base.BasePostFragment
-import com.strangecoder.socialmedia.ui.main.viewmodels.BasePostViewModel
+import com.strangecoder.socialmedia.ui.main.viewmodels.base.BasePostViewModel
 import com.strangecoder.socialmedia.ui.main.viewmodels.ProfileViewModel
 import com.strangecoder.socialmedia.ui.viewutils.snackBar
 import dagger.hilt.android.AndroidEntryPoint

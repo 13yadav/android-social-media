@@ -50,7 +50,7 @@ class CreatePostFragment : Fragment() {
                 snackBar("Failed to get image!")
                 return null
             }
-            return CropImage.getActivityResult(intent).uri
+            return CropImage.getActivityResult(intent)?.uri
         }
     }
 

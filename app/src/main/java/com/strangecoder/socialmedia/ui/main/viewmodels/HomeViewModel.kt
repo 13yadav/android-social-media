@@ -7,6 +7,7 @@ import com.strangecoder.socialmedia.data.entities.Post
 import com.strangecoder.socialmedia.other.Event
 import com.strangecoder.socialmedia.other.Resource
 import com.strangecoder.socialmedia.repositories.MainRepository
+import com.strangecoder.socialmedia.ui.main.viewmodels.base.BasePostViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers

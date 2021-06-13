@@ -13,8 +13,10 @@ import com.bumptech.glide.RequestManager
 import com.google.firebase.auth.FirebaseAuth
 import com.strangecoder.socialmedia.other.EventObserver
 import com.strangecoder.socialmedia.ui.main.adapters.PostsAdapter
+import com.strangecoder.socialmedia.ui.main.adapters.UserAdapter
 import com.strangecoder.socialmedia.ui.main.dialogs.DeletePostDialog
-import com.strangecoder.socialmedia.ui.main.viewmodels.BasePostViewModel
+import com.strangecoder.socialmedia.ui.main.dialogs.LikedByDialog
+import com.strangecoder.socialmedia.ui.main.viewmodels.base.BasePostViewModel
 import com.strangecoder.socialmedia.ui.viewutils.snackBar
 import javax.inject.Inject
 
@@ -66,6 +68,10 @@ abstract class BasePostFragment<T : ViewDataBinding> : Fragment() {
                 }
             }.show(childFragmentManager, null)
         }
+
+        postsAdapter.setOnLikedByClickListener { post ->
+            basePostViewModel.getUsers(post.likedBy)
+        }
     }
 
     private fun subscribeToObservers() {
@@ -88,11 +94,20 @@ abstract class BasePostFragment<T : ViewDataBinding> : Fragment() {
                 val uid = FirebaseAuth.getInstance().uid!!
                 postsAdapter.posts[index].apply {
                     this.isLiked = isLiked
+                    isLiking = false
                     if (isLiked) likedBy += uid
                     else likedBy -= uid
                 }
                 postsAdapter.notifyItemChanged(index)
             }
+        })
+
+        basePostViewModel.likedByUsers.observe(viewLifecycleOwner, EventObserver(
+            onError = { snackBar(it) }
+        ) { users ->
+            val userAdapter = UserAdapter(glide)
+            userAdapter.users = users
+            LikedByDialog(userAdapter).show(childFragmentManager, null)
         })
 
         basePostViewModel.deletePostStatus.observe(viewLifecycleOwner, EventObserver(

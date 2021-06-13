@@ -7,7 +7,7 @@
     <string name="example_post_text">today is a good day to make a post in this social network, this is actually just an example text I write to have some lines of text</string>
     <string name="example_post_username">13yadav</string>
     <string name="search_hint">search...</string>
-    <string name="posts">your posts</string>
+    <string name="posts">posts</string>
     <string name="logout">logout</string>
     <string name="email">e-mail</string>
     <string name="password">password</string>

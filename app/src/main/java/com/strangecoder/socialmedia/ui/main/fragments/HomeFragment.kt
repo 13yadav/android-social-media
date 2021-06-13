@@ -7,7 +7,7 @@ import androidx.fragment.app.viewModels
 import com.strangecoder.socialmedia.R
 import com.strangecoder.socialmedia.databinding.FragmentHomeBinding
 import com.strangecoder.socialmedia.ui.main.fragments.base.BasePostFragment
-import com.strangecoder.socialmedia.ui.main.viewmodels.BasePostViewModel
+import com.strangecoder.socialmedia.ui.main.viewmodels.base.BasePostViewModel
 import com.strangecoder.socialmedia.ui.main.viewmodels.HomeViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
