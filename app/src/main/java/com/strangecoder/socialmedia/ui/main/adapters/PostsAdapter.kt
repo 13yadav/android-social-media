@@ -41,38 +41,29 @@ class PostsAdapter @Inject constructor(
     }
 
     override fun onBindViewHolder(holder: PostViewHolder, position: Int) {
-        val binding = holder.binding
         val post = posts[position]
         holder.bind(post)
 
-        binding.tvPostAuthor.setOnClickListener {
-            onUserClickListener?.let { click ->
-                click(post.authorUid)
+        holder.binding.apply {
+            tvPostAuthor.setOnClickListener {
+                onUserClickListener?.let { click -> click(post.authorUid) }
             }
-        }
-        binding.ivAuthorProfileImage.setOnClickListener {
-            onUserClickListener?.let { click ->
-                click(post.authorUid)
+            ivAuthorProfileImage.setOnClickListener {
+                onUserClickListener?.let { click -> click(post.authorUid) }
             }
-        }
-        binding.tvLikedBy.setOnClickListener {
-            onLikedByClickListener?.let { click ->
-                click(post)
+            tvLikedBy.setOnClickListener {
+                onLikedByClickListener?.let { click -> click(post) }
             }
-        }
-        binding.ibLike.setOnClickListener {
-            onLikeClickListener?.let { click ->
-                if (!post.isLiking) click(post, holder.layoutPosition)
+            ibLike.setOnClickListener {
+                onLikeClickListener?.let { click ->
+                    if (!post.isLiking) click(post, holder.layoutPosition)
+                }
             }
-        }
-        binding.ibComments.setOnClickListener {
-            onCommentsClickListener?.let { click ->
-                click(post)
+            ibComments.setOnClickListener {
+                onCommentsClickListener?.let { click -> click(post) }
             }
-        }
-        binding.ibDeletePost.setOnClickListener {
-            onDeletePostClickListener?.let { click ->
-                click(post)
+            ibDeletePost.setOnClickListener {
+                onDeletePostClickListener?.let { click -> click(post) }
             }
         }
     }
