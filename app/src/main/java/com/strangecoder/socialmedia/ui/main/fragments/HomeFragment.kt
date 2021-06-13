@@ -31,7 +31,7 @@ class HomeFragment : BasePostFragment<FragmentHomeBinding>() {
     }
 
     private fun setUpRecyclerView() = binding.rvAllPosts.apply {
-        adapter = postAdapter
+        adapter = postsAdapter
         itemAnimator = null
     }
 }

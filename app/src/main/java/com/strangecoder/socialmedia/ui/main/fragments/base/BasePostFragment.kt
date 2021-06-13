@@ -26,7 +26,7 @@ abstract class BasePostFragment<T : ViewDataBinding> : Fragment() {
     lateinit var glide: RequestManager
 
     @Inject
-    lateinit var postAdapter: PostsAdapter
+    lateinit var postsAdapter: PostsAdapter
 
     protected abstract val postProgressBar: ProgressBar
 
@@ -54,12 +54,12 @@ abstract class BasePostFragment<T : ViewDataBinding> : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         subscribeToObservers()
 
-        postAdapter.setOnLikeClickListener { post, i ->
+        postsAdapter.setOnLikeClickListener { post, i ->
             currentLikedIndex = i
             post.isLiked = !post.isLiked
             basePostViewModel.toggleLikeForPost(post)
         }
-        postAdapter.setOnDeletePostClickListener { post ->
+        postsAdapter.setOnDeletePostClickListener { post ->
             DeletePostDialog().apply {
                 setPositiveListener {
                     basePostViewModel.deletePost(post)
@@ -72,33 +72,33 @@ abstract class BasePostFragment<T : ViewDataBinding> : Fragment() {
         basePostViewModel.likePostStatus.observe(viewLifecycleOwner, EventObserver(
             onError = {
                 currentLikedIndex?.let { index ->
-                    postAdapter.posts[index].isLiking = false
-                    postAdapter.notifyItemChanged(index)
+                    postsAdapter.posts[index].isLiking = false
+                    postsAdapter.notifyItemChanged(index)
                 }
                 snackBar(it)
             },
             onLoading = {
                 currentLikedIndex?.let { index ->
-                    postAdapter.posts[index].isLiking = true
-                    postAdapter.notifyItemChanged(index)
+                    postsAdapter.posts[index].isLiking = true
+                    postsAdapter.notifyItemChanged(index)
                 }
             }
         ) { isLiked ->
             currentLikedIndex?.let { index ->
                 val uid = FirebaseAuth.getInstance().uid!!
-                postAdapter.posts[index].apply {
+                postsAdapter.posts[index].apply {
                     this.isLiked = isLiked
                     if (isLiked) likedBy += uid
                     else likedBy -= uid
                 }
-                postAdapter.notifyItemChanged(index)
+                postsAdapter.notifyItemChanged(index)
             }
         })
 
         basePostViewModel.deletePostStatus.observe(viewLifecycleOwner, EventObserver(
             onError = { snackBar(it) }
         ) { deletedPost ->
-            postAdapter.posts -= deletedPost
+            postsAdapter.posts -= deletedPost
         })
 
         basePostViewModel.posts.observe(viewLifecycleOwner, EventObserver(
@@ -111,7 +111,7 @@ abstract class BasePostFragment<T : ViewDataBinding> : Fragment() {
             }
         ) { posts ->
             postProgressBar.isVisible = false
-            postAdapter.posts = posts
+            postsAdapter.posts = posts
         })
     }
 

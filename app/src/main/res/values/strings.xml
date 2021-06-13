@@ -30,7 +30,7 @@
     <string name="post">post</string>
     <string name="error_invalid_file">the chosen image is invalid</string>
     <string name="username">username</string>
-    <string name="no_description">no description</string>
+    <string name="no_description">404 bio not found</string>
     <string name="description">bio</string>
     <string name="update_profile">update profile</string>
     <string name="edit_your_profile">edit your profile</string>
