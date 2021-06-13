@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/auth_nav_graph"
     app:startDestination="@id/loginFragment">
 
@@ -63,4 +64,15 @@
             app:destination="@id/loginFragment"
             app:popUpTo="@id/loginFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/othersProfileFragment"
+        android:name="com.strangecoder.socialmedia.ui.main.fragments.OthersProfileFragment"
+        android:label="User Profile" >
+        <argument
+            android:name="uid"
+            app:argType="string" />
+    </fragment>
+    <action
+        android:id="@+id/action_global_to_othersProfileFragment"
+        app:destination="@id/othersProfileFragment" />
 </navigation>

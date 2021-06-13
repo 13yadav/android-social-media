@@ -81,7 +81,7 @@ class PostsAdapter @Inject constructor(
 
     class PostViewHolder(
         val binding: ListItemPostBinding,
-        private val glide: RequestManager,
+        private val glide: RequestManager
     ) : RecyclerView.ViewHolder(binding.root) {
 
         fun bind(post: Post) {
