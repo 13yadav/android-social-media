@@ -6,6 +6,7 @@ import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.Query
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.ktx.storage
+import com.strangecoder.socialmedia.data.entities.Comment
 import com.strangecoder.socialmedia.data.entities.Post
 import com.strangecoder.socialmedia.data.entities.User
 import com.strangecoder.socialmedia.other.Resource
@@ -155,6 +156,49 @@ class MainRepositoryImpl @Inject constructor() : MainRepository {
                     .await()
                     .toObjects(User::class.java)
             Resource.Success(userResults)
+        }
+    }
+
+    override suspend fun createComment(commentText: String, postId: String) =
+        withContext(Dispatchers.IO) {
+            safeCall {
+                val uid = auth.uid!!
+                val commentId = UUID.randomUUID().toString()
+                val user = getUser(uid).data!!
+                val comment = Comment(
+                    commentId = commentId,
+                    postId = postId,
+                    uid = uid,
+                    username = user.username,
+                    profilePictureUrl = user.profilePictureUrl,
+                    comment = commentText
+                )
+                comments.document(commentId).set(comment).await()
+                Resource.Success(comment)
+            }
+        }
+
+    override suspend fun getCommentForPost(postId: String) = withContext(Dispatchers.IO) {
+        safeCall {
+            val commentsForPost = comments
+                .whereEqualTo("postId", postId)
+                .orderBy("date", Query.Direction.DESCENDING)
+                .get()
+                .await()
+                .toObjects(Comment::class.java)
+                .onEach { comment ->
+                    val user = getUser(comment.uid).data!!
+                    comment.username = user.username
+                    comment.profilePictureUrl = user.profilePictureUrl
+                }
+            Resource.Success(commentsForPost)
+        }
+    }
+
+    override suspend fun deleteComment(comment: Comment) = withContext(Dispatchers.IO) {
+        safeCall {
+            comments.document(comment.commentId).delete().await()
+            Resource.Success(comment)
         }
     }
 }
