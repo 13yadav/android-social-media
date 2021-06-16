@@ -8,7 +8,9 @@ import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.ktx.storage
 import com.strangecoder.socialmedia.data.entities.Comment
 import com.strangecoder.socialmedia.data.entities.Post
+import com.strangecoder.socialmedia.data.entities.ProfileUpdate
 import com.strangecoder.socialmedia.data.entities.User
+import com.strangecoder.socialmedia.other.Constants.DEFAULT_PROFILE_PICTURE_URL
 import com.strangecoder.socialmedia.other.Resource
 import com.strangecoder.socialmedia.other.safeCall
 import dagger.hilt.android.scopes.ViewModelScoped
@@ -201,4 +203,32 @@ class MainRepositoryImpl @Inject constructor() : MainRepository {
             Resource.Success(comment)
         }
     }
+
+    override suspend fun updateProfilePicture(uid: String, imageUri: Uri) =
+        withContext(Dispatchers.IO) {
+            val storageRef = storage.getReference(uid)
+            val user = getUser(uid).data!!
+            if (user.profilePictureUrl != DEFAULT_PROFILE_PICTURE_URL) {
+                storage.getReferenceFromUrl(user.profilePictureUrl).delete().await()
+            }
+            storageRef.putFile(imageUri).await().metadata?.reference?.downloadUrl?.await()
+        }
+
+    override suspend fun updateProfile(profileUpdate: ProfileUpdate) =
+        withContext(Dispatchers.IO) {
+            safeCall {
+                val imageUrl = profileUpdate.profilePictureUri?.let { uri ->
+                    updateProfilePicture(profileUpdate.uidToUpdate, uri).toString()
+                }
+                val map = mutableMapOf(
+                    "username" to profileUpdate.username,
+                    "bio" to profileUpdate.bio
+                )
+                imageUrl?.let { url ->
+                    map["profilePictureUrl"] = url
+                }
+                users.document(profileUpdate.uidToUpdate).update(map.toMap()).await()
+                Resource.Success(Any())
+            }
+        }
 }

@@ -3,6 +3,7 @@ package com.strangecoder.socialmedia.repositories
 import android.net.Uri
 import com.strangecoder.socialmedia.data.entities.Comment
 import com.strangecoder.socialmedia.data.entities.Post
+import com.strangecoder.socialmedia.data.entities.ProfileUpdate
 import com.strangecoder.socialmedia.data.entities.User
 import com.strangecoder.socialmedia.other.Resource
 
@@ -31,4 +32,8 @@ interface MainRepository {
     suspend fun getCommentForPost(postId: String): Resource<List<Comment>>
 
     suspend fun deleteComment(comment: Comment): Resource<Comment>
+
+    suspend fun updateProfile(profileUpdate: ProfileUpdate): Resource<Any>
+
+    suspend fun updateProfilePicture(uid: String, imageUri: Uri): Uri?
 }

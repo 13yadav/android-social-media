@@ -30,7 +30,7 @@ object AppModule {
         @ApplicationContext context: Context
     ) = Glide.with(context).setDefaultRequestOptions(
         RequestOptions()
-            .placeholder(R.drawable.ic_launcher_background)
+            .placeholder(R.color.secondaryText)
             .error(R.drawable.ic_embarrassed)
             .diskCacheStrategy(DiskCacheStrategy.DATA)
     )
