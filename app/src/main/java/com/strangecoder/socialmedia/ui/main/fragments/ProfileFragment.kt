@@ -5,13 +5,14 @@ import android.view.View
 import android.widget.ProgressBar
 import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import com.google.firebase.auth.FirebaseAuth
 import com.strangecoder.socialmedia.R
 import com.strangecoder.socialmedia.databinding.FragmentProfileBinding
 import com.strangecoder.socialmedia.other.EventObserver
 import com.strangecoder.socialmedia.ui.main.fragments.base.BasePostFragment
-import com.strangecoder.socialmedia.ui.main.viewmodels.base.BasePostViewModel
 import com.strangecoder.socialmedia.ui.main.viewmodels.ProfileViewModel
+import com.strangecoder.socialmedia.ui.main.viewmodels.base.BasePostViewModel
 import com.strangecoder.socialmedia.ui.viewutils.snackBar
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -42,7 +43,14 @@ open class ProfileFragment : BasePostFragment<FragmentProfileBinding>() {
         subscribeToObservers()
 
         binding.btnToggleFollow.isVisible = false
+        binding.btnMessage.isVisible = false
+        binding.btnEditProfile.isVisible = true
+
         viewModel.loadProfile(uid)
+
+        binding.btnEditProfile.setOnClickListener {
+            findNavController().navigate(R.id.action_profileFragment_to_editProfileFragment)
+        }
     }
 
     private fun setupRecyclerView() = binding.rvPosts.apply {
@@ -53,14 +61,14 @@ open class ProfileFragment : BasePostFragment<FragmentProfileBinding>() {
     private fun subscribeToObservers() {
         viewModel.profileMeta.observe(viewLifecycleOwner, EventObserver(
             onLoading = {
-                binding.profileMetaProgressBar.isVisible = true
+                binding.profilePostsProgressBar.isVisible = true
             },
             onError = {
-                binding.profileMetaProgressBar.isVisible = false
+                binding.profilePostsProgressBar.isVisible = false
                 snackBar(it)
             }
         ) { user ->
-            binding.profileMetaProgressBar.isVisible = false
+            binding.profilePostsProgressBar.isVisible = false
             binding.tvUsername.text = user.username
             binding.tvProfileDescription.text =
                 if (user.bio.isEmpty()) requireContext().getString(R.string.no_description)

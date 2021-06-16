@@ -6,26 +6,15 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <com.google.android.material.textview.MaterialTextView
-        android:id="@+id/materialTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:text="@string/edit_your_profile"
-        android:textSize="30sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
     <com.google.android.material.imageview.ShapeableImageView
         android:id="@+id/ivProfileImage"
         android:layout_width="200dp"
         android:layout_height="200dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="30dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/materialTextView"
+        app:layout_constraintTop_toTopOf="parent"
         app:shapeAppearance="@style/CornerSize50Percent"
         tools:src="@drawable/ic_user_placeholder" />
 

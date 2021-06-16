@@ -48,4 +48,6 @@
     <string name="comments">comments</string>
     <string name="add_post">add post</string>
     <string name="chats">chats</string>
+    <string name="edit_profile">edit profile</string>
+    <string name="message">message</string>
 </resources>

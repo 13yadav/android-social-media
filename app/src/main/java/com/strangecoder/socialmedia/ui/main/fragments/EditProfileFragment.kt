@@ -13,6 +13,7 @@ import androidx.core.view.isVisible
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.RequestManager
 import com.google.firebase.auth.FirebaseAuth
 import com.strangecoder.socialmedia.R
@@ -137,6 +138,7 @@ class EditProfileFragment : Fragment() {
             binding.editProfileProgressBar.isVisible = false
             binding.btnUpdateProfile.isEnabled = false
             snackBar(requireContext().getString(R.string.profile_updated))
+            findNavController().navigate(R.id.action_editProfileFragment_to_profileFragment)
         })
     }
 

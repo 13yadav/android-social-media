@@ -45,7 +45,13 @@
     <fragment
         android:id="@+id/editProfileFragment"
         android:name="com.strangecoder.socialmedia.ui.main.fragments.EditProfileFragment"
-        android:label="Edit Profile" />
+        android:label="Edit Profile" >
+        <action
+            android:id="@+id/action_editProfileFragment_to_profileFragment"
+            app:destination="@id/profileFragment"
+            app:popUpTo="@id/editProfileFragment"
+            app:popUpToInclusive="true" />
+    </fragment>
     <fragment
         android:id="@+id/messagesFragment"
         android:name="com.strangecoder.socialmedia.ui.main.fragments.MessagesFragment"
@@ -62,6 +68,9 @@
             android:id="@+id/action_profileFragment_to_loginFragment"
             app:destination="@id/loginFragment"
             app:popUpTo="@id/loginFragment" />
+        <action
+            android:id="@+id/action_profileFragment_to_editProfileFragment"
+            app:destination="@id/editProfileFragment" />
     </fragment>
     <fragment
         android:id="@+id/othersProfileFragment"
