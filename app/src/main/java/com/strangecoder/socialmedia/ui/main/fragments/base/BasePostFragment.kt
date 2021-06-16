@@ -9,8 +9,10 @@ import androidx.core.view.isVisible
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.RequestManager
 import com.google.firebase.auth.FirebaseAuth
+import com.strangecoder.socialmedia.R
 import com.strangecoder.socialmedia.other.EventObserver
 import com.strangecoder.socialmedia.ui.main.adapters.PostsAdapter
 import com.strangecoder.socialmedia.ui.main.adapters.UserAdapter
@@ -71,6 +73,13 @@ abstract class BasePostFragment<T : ViewDataBinding> : Fragment() {
 
         postsAdapter.setOnLikedByClickListener { post ->
             basePostViewModel.getUsers(post.likedBy)
+        }
+
+        postsAdapter.setOnCommentsClickListener { comment ->
+            findNavController().navigate(
+                R.id.globalActionToCommentDialog,
+                Bundle().apply { putString("postId", comment.id) }
+            )
         }
     }
 

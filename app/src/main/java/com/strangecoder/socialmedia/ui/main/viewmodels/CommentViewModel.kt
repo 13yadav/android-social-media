@@ -30,6 +30,7 @@ class CommentViewModel @Inject constructor(
     val commentsForPost: LiveData<Event<Resource<List<Comment>>>> = _commentsForPost
 
     fun createComment(commentText: String, postId: String) {
+        if (commentText.isEmpty()) return
         _createCommentStatus.postValue(Event(Resource.Loading()))
         viewModelScope.launch(dispatcher) {
             val result = repository.createComment(commentText, postId)
