@@ -3,7 +3,7 @@ package com.strangecoder.socialmedia.ui.main.adapters
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.core.view.isVisible
-import androidx.recyclerview.widget.AsyncListDiffer
+import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.RequestManager
@@ -15,9 +15,9 @@ import javax.inject.Inject
 
 class PostsAdapter @Inject constructor(
     private val glide: RequestManager
-) : RecyclerView.Adapter<PostsAdapter.PostViewHolder>() {
+) : PagingDataAdapter<Post, PostsAdapter.PostViewHolder>(Companion) {
 
-    private val diffCallback = object : DiffUtil.ItemCallback<Post>() {
+    companion object : DiffUtil.ItemCallback<Post>() {
         override fun areItemsTheSame(oldItem: Post, newItem: Post): Boolean {
             return oldItem.id == newItem.id
         }
@@ -27,12 +27,6 @@ class PostsAdapter @Inject constructor(
         }
     }
 
-    private val differ = AsyncListDiffer(this, diffCallback)
-
-    var posts: List<Post>
-        get() = differ.currentList
-        set(value) = differ.submitList(value)
-
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PostViewHolder {
         return PostViewHolder(
             ListItemPostBinding.inflate(LayoutInflater.from(parent.context), parent, false),
@@ -41,7 +35,7 @@ class PostsAdapter @Inject constructor(
     }
 
     override fun onBindViewHolder(holder: PostViewHolder, position: Int) {
-        val post = posts[position]
+        val post = getItem(position) ?: return
         holder.bind(post)
 
         holder.binding.apply {
@@ -63,12 +57,10 @@ class PostsAdapter @Inject constructor(
                 onCommentsClickListener?.let { click -> click(post) }
             }
             ibDeletePost.setOnClickListener {
-                onDeletePostClickListener?.let { click -> click(post) }
+                onDeletePostClickListener?.let { click -> click(post, position) }
             }
         }
     }
-
-    override fun getItemCount() = posts.size
 
     class PostViewHolder(
         val binding: ListItemPostBinding,
@@ -98,7 +90,7 @@ class PostsAdapter @Inject constructor(
 
     private var onLikeClickListener: ((Post, Int) -> Unit)? = null
     private var onUserClickListener: ((String) -> Unit)? = null
-    private var onDeletePostClickListener: ((Post) -> Unit)? = null
+    private var onDeletePostClickListener: ((Post, Int) -> Unit)? = null
     private var onLikedByClickListener: ((Post) -> Unit)? = null
     private var onCommentsClickListener: ((Post) -> Unit)? = null
 
@@ -110,7 +102,7 @@ class PostsAdapter @Inject constructor(
         onUserClickListener = listener
     }
 
-    fun setOnDeletePostClickListener(listener: (Post) -> Unit) {
+    fun setOnDeletePostClickListener(listener: (Post, Int) -> Unit) {
         onDeletePostClickListener = listener
     }
 

@@ -2,10 +2,11 @@ package com.strangecoder.socialmedia.ui.main.fragments
 
 import android.os.Bundle
 import android.view.View
-import android.widget.ProgressBar
 import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
+import androidx.paging.LoadState
 import com.google.firebase.auth.FirebaseAuth
 import com.strangecoder.socialmedia.R
 import com.strangecoder.socialmedia.databinding.FragmentProfileBinding
@@ -15,12 +16,12 @@ import com.strangecoder.socialmedia.ui.main.viewmodels.ProfileViewModel
 import com.strangecoder.socialmedia.ui.main.viewmodels.base.BasePostViewModel
 import com.strangecoder.socialmedia.ui.viewutils.snackBar
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 open class ProfileFragment : BasePostFragment<FragmentProfileBinding>() {
-
-    override val postProgressBar: ProgressBar
-        get() = binding.profilePostsProgressBar
 
     override val basePostViewModel: BasePostViewModel
         get() {
@@ -51,6 +52,18 @@ open class ProfileFragment : BasePostFragment<FragmentProfileBinding>() {
         binding.btnEditProfile.setOnClickListener {
             findNavController().navigate(R.id.action_profileFragment_to_editProfileFragment)
         }
+
+        lifecycleScope.launch {
+            viewModel.getPagingFlow(uid).collect {
+                postsAdapter.submitData(it)
+            }
+        }
+        lifecycleScope.launch {
+            postsAdapter.loadStateFlow.collectLatest {
+                binding.profilePostsProgressBar.isVisible =
+                    it.refresh is LoadState.Loading || it.append is LoadState.Loading
+            }
+        }
     }
 
     private fun setupRecyclerView() = binding.rvPosts.apply {
@@ -74,6 +87,15 @@ open class ProfileFragment : BasePostFragment<FragmentProfileBinding>() {
                 if (user.bio.isEmpty()) requireContext().getString(R.string.no_description)
                 else user.bio
             glide.load(user.profilePictureUrl).into(binding.ivProfileImage)
+        })
+
+        basePostViewModel.deletePostStatus.observe(viewLifecycleOwner, EventObserver(
+            onError = { snackBar(it) }
+        ) {
+            postsAdapter.refresh()
+            if (viewModel.deletePostPosition != -1)
+                postsAdapter.notifyItemChanged(viewModel.deletePostPosition)
+            viewModel.invalidatePagingSource()
         })
     }
 }
