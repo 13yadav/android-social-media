@@ -20,6 +20,7 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
+        setSupportActionBar(binding.toolbar)
         setContentView(binding.root)
         bottomNav = binding.bottomNavBar
 
@@ -45,7 +46,7 @@ class MainActivity : AppCompatActivity() {
         val navController = navHostFragment.navController
         val appBarConfiguration = AppBarConfiguration(navGraphIds)
         binding.toolbar.setupWithNavController(navController, appBarConfiguration)
-        navHostFragment.navController.addOnDestinationChangedListener { controller, destination, arguments ->
+        navHostFragment.navController.addOnDestinationChangedListener { _, destination, _ ->
             val id = destination.id
 
             if (id == R.id.homeFragment

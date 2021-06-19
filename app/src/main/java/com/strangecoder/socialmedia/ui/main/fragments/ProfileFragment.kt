@@ -1,6 +1,9 @@
 package com.strangecoder.socialmedia.ui.main.fragments
 
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.MenuItem
 import android.view.View
 import android.widget.ProgressBar
 import androidx.core.view.isVisible
@@ -35,6 +38,11 @@ open class ProfileFragment : BasePostFragment<FragmentProfileBinding>() {
 
     protected open val uid: String
         get() = FirebaseAuth.getInstance().uid!!
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setHasOptionsMenu(true)
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -75,5 +83,21 @@ open class ProfileFragment : BasePostFragment<FragmentProfileBinding>() {
                 else user.bio
             glide.load(user.profilePictureUrl).into(binding.ivProfileImage)
         })
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        super.onCreateOptionsMenu(menu, inflater)
+        inflater.inflate(R.menu.menu_main, menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            R.id.actionLogout -> {
+                FirebaseAuth.getInstance().signOut()
+                findNavController().navigate(R.id.globalToLoginFragment)
+                true
+            }
+            else -> super.onOptionsItemSelected(item)
+        }
     }
 }

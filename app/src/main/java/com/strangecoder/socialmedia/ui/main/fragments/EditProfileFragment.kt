@@ -97,6 +97,8 @@ class EditProfileFragment : Fragment() {
         }
 
         binding.btnUpdateProfile.setOnClickListener {
+            it.isVisible = false
+            binding.editProfileProgressBar.isVisible = true
             val username = binding.etUsername.text.toString()
             val bio = binding.etDescription.text.toString()
             val profileUpdate = ProfileUpdate(uid, username, bio, curImageUri)

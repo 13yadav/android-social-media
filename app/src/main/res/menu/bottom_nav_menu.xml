@@ -3,11 +3,11 @@
 
     <item
         android:id="@+id/homeFragment"
-        android:icon="@drawable/ic_home"
+        android:icon="@drawable/selector_home"
         android:title="@string/home" />
     <item
         android:id="@+id/searchFragment"
-        android:icon="@drawable/ic_search"
+        android:icon="@drawable/selector_search"
         android:title="@string/search" />
     <item
         android:id="@+id/createPostFragment"
@@ -15,11 +15,11 @@
         android:title="@string/add_post" />
     <item
         android:id="@+id/messagesFragment"
-        android:icon="@drawable/ic_send"
+        android:icon="@drawable/selector_chats"
         android:title="@string/chats" />
     <item
         android:id="@+id/profileFragment"
-        android:icon="@drawable/ic_user"
+        android:icon="@drawable/selector_user"
         android:title="@string/profile" />
 
 </menu>

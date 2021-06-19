@@ -10,9 +10,12 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
+import com.google.firebase.auth.FirebaseAuth
+import com.strangecoder.socialmedia.R
 import com.strangecoder.socialmedia.databinding.FragmentSearchBinding
 import com.strangecoder.socialmedia.other.Constants.SEARCH_TIME_DELAY
 import com.strangecoder.socialmedia.other.EventObserver
+import com.strangecoder.socialmedia.ui.MainActivity
 import com.strangecoder.socialmedia.ui.main.adapters.UserAdapter
 import com.strangecoder.socialmedia.ui.main.viewmodels.SearchViewModel
 import com.strangecoder.socialmedia.ui.viewutils.snackBar
@@ -60,6 +63,10 @@ class SearchFragment : Fragment() {
         }
 
         userAdapter.setOnUserClickListener { user ->
+            if (user.uid == FirebaseAuth.getInstance().uid!!) {
+                (requireActivity() as MainActivity).bottomNav.selectedItemId = R.id.profileFragment
+                return@setOnUserClickListener
+            }
             findNavController()
                 .navigate(SearchFragmentDirections.actionGlobalToOthersProfileFragment(user.uid))
         }
