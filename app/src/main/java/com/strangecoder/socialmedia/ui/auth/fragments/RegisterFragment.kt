@@ -53,10 +53,12 @@ class RegisterFragment : Fragment() {
         viewModel.registerStatus.observe(viewLifecycleOwner, EventObserver(
             onError = {
                 binding.registerProgressBar.isVisible = false
+                binding.btnRegister.isVisible = true
                 snackBar(it)
             },
             onLoading = {
                 binding.registerProgressBar.isVisible = true
+                binding.btnRegister.isVisible = false
             },
             onSuccess = {
                 binding.registerProgressBar.isVisible = false

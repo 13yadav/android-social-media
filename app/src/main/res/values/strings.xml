@@ -50,4 +50,6 @@
     <string name="chats">chats</string>
     <string name="edit_profile">edit profile</string>
     <string name="message">message</string>
+    <string name="no_posts">follow someone to view posts here</string>
+    <string name="no_posts_profile">No Posts</string>
 </resources>

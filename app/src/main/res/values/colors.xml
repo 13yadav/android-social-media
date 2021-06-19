@@ -8,6 +8,6 @@
     <color name="secondaryColor">#ffb156</color>
     <color name="secondaryLightColor">#ffe386</color>
     <color name="secondaryDarkColor">#c88127</color>
-    <color name="secondaryText">#979FAC</color>
+    <color name="secondaryText">#909090</color>
 
 </resources>

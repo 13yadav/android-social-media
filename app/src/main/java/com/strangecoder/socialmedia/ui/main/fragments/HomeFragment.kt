@@ -3,6 +3,7 @@ package com.strangecoder.socialmedia.ui.main.fragments
 import android.os.Bundle
 import android.view.View
 import android.widget.ProgressBar
+import android.widget.TextView
 import androidx.fragment.app.viewModels
 import com.strangecoder.socialmedia.R
 import com.strangecoder.socialmedia.databinding.FragmentHomeBinding
@@ -22,6 +23,9 @@ class HomeFragment : BasePostFragment<FragmentHomeBinding>() {
             val vm: HomeViewModel by viewModels()
             return vm
         }
+
+    override val errorTextView: TextView
+        get() = binding.tvError
 
     override fun getFragmentView() = R.layout.fragment_home
 

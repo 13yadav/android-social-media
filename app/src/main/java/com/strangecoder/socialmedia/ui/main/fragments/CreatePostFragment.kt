@@ -93,6 +93,9 @@ class CreatePostFragment : Fragment() {
                 viewModel.createPost(uri, binding.etPostDescription.text.toString())
             } ?: snackBar(getString(R.string.error_no_image_chosen))
         }
+        binding.btnDiscard.setOnClickListener {
+            findNavController().popBackStack()
+        }
     }
 
     private fun subscribeToObservers() {
@@ -105,9 +108,13 @@ class CreatePostFragment : Fragment() {
         viewModel.createPostStatus.observe(viewLifecycleOwner, EventObserver(
             onLoading = {
                 binding.createPostProgressBar.isVisible = true
+                binding.btnDiscard.isVisible = false
+                binding.btnPost.isVisible = false
             },
             onError = {
                 binding.createPostProgressBar.isVisible = false
+                binding.btnDiscard.isVisible = true
+                binding.btnPost.isVisible = true
                 snackBar(it)
             },
             onSuccess = {

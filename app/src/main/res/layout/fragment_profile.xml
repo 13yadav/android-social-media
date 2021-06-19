@@ -145,6 +145,26 @@
                 tools:itemCount="1"
                 tools:listitem="@layout/list_item_post" />
 
+            <TextView
+                android:id="@+id/tvError"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="40dp"
+                android:layout_marginTop="40dp"
+                android:layout_marginEnd="40dp"
+                android:fontFamily="@font/nunito_semibold"
+                android:gravity="center"
+                android:text="@string/no_posts_profile"
+                android:textSize="20sp"
+                android:visibility="gone"
+                app:drawableTint="@color/secondaryText"
+                app:drawableTopCompat="@drawable/ic_embarrassed"
+                app:fontFamily="@font/nunito_semibold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/view2" />
+
             <ProgressBar
                 android:id="@+id/profilePostsProgressBar"
                 android:layout_width="wrap_content"
@@ -154,7 +174,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/view2"
+                app:layout_constraintTop_toBottomOf="@id/rvPosts"
                 tools:visibility="visible" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>

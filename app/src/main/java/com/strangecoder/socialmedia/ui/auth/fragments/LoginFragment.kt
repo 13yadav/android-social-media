@@ -48,9 +48,11 @@ class LoginFragment : Fragment() {
         viewModel.loginStatus.observe(viewLifecycleOwner, EventObserver(
             onLoading = {
                 binding.loginProgressBar.isVisible = true
+                binding.btnLogin.isVisible = false
             },
             onError = {
                 binding.loginProgressBar.isVisible = false
+                binding.btnLogin.isVisible = true
                 snackBar(it)
             },
             onSuccess = {

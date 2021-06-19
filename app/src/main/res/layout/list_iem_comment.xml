@@ -48,6 +48,7 @@
         app:layout_constraintBottom_toBottomOf="@+id/tvCommentUsername"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@+id/tvCommentUsername"
+        app:tint="@color/secondaryText"
         tools:visibility="visible" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

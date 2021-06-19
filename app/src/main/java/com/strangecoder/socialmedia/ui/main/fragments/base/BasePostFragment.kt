@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ProgressBar
+import android.widget.TextView
 import androidx.core.view.isVisible
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
@@ -14,6 +15,7 @@ import com.bumptech.glide.RequestManager
 import com.google.firebase.auth.FirebaseAuth
 import com.strangecoder.socialmedia.R
 import com.strangecoder.socialmedia.other.EventObserver
+import com.strangecoder.socialmedia.ui.MainActivity
 import com.strangecoder.socialmedia.ui.main.adapters.PostsAdapter
 import com.strangecoder.socialmedia.ui.main.adapters.UserAdapter
 import com.strangecoder.socialmedia.ui.main.dialogs.DeletePostDialog
@@ -35,6 +37,8 @@ abstract class BasePostFragment<T : ViewDataBinding> : Fragment() {
     protected abstract val postProgressBar: ProgressBar
 
     protected abstract val basePostViewModel: BasePostViewModel
+
+    protected abstract val errorTextView: TextView
 
     private var currentLikedIndex: Int? = null
 
@@ -58,11 +62,24 @@ abstract class BasePostFragment<T : ViewDataBinding> : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         subscribeToObservers()
 
+        postsAdapter.setOnUserClickListener { uid ->
+            if (uid == FirebaseAuth.getInstance().uid!!) {
+                (requireActivity() as MainActivity).bottomNav.selectedItemId = R.id.profileFragment
+                return@setOnUserClickListener
+            }
+            findNavController().navigate(
+                R.id.action_global_to_othersProfileFragment,
+                Bundle().apply {
+                    putString("uid", uid)
+                })
+        }
+
         postsAdapter.setOnLikeClickListener { post, i ->
             currentLikedIndex = i
             post.isLiked = !post.isLiked
             basePostViewModel.toggleLikeForPost(post)
         }
+
         postsAdapter.setOnDeletePostClickListener { post ->
             DeletePostDialog().apply {
                 setPositiveListener {
@@ -114,7 +131,20 @@ abstract class BasePostFragment<T : ViewDataBinding> : Fragment() {
         basePostViewModel.likedByUsers.observe(viewLifecycleOwner, EventObserver(
             onError = { snackBar(it) }
         ) { users ->
-            val userAdapter = UserAdapter(glide)
+            val userAdapter = UserAdapter(glide).apply {
+                setOnUserClickListener { user ->
+                    if (user.uid == FirebaseAuth.getInstance().uid!!) {
+                        (requireActivity() as MainActivity).bottomNav.selectedItemId =
+                            R.id.profileFragment
+                        return@setOnUserClickListener
+                    }
+                    findNavController().navigate(
+                        R.id.action_global_to_othersProfileFragment,
+                        Bundle().apply {
+                            putString("uid", user.uid)
+                        })
+                }
+            }
             userAdapter.users = users
             LikedByDialog(userAdapter).show(childFragmentManager, null)
         })
@@ -128,12 +158,18 @@ abstract class BasePostFragment<T : ViewDataBinding> : Fragment() {
         basePostViewModel.posts.observe(viewLifecycleOwner, EventObserver(
             onError = {
                 postProgressBar.isVisible = false
+                errorTextView.isVisible = true
                 snackBar(it)
             },
             onLoading = {
+                errorTextView.isVisible = false
                 postProgressBar.isVisible = true
             }
         ) { posts ->
+            if (posts.isEmpty()) {
+                errorTextView.isVisible = true
+            }
+            errorTextView.isVisible = false
             postProgressBar.isVisible = false
             postsAdapter.posts = posts
         })

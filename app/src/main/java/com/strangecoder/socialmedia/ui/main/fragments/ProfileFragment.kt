@@ -6,6 +6,7 @@ import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
 import android.widget.ProgressBar
+import android.widget.TextView
 import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
@@ -30,6 +31,9 @@ open class ProfileFragment : BasePostFragment<FragmentProfileBinding>() {
             val vm: ProfileViewModel by viewModels()
             return vm
         }
+
+    override val errorTextView: TextView
+        get() = binding.tvError
 
     override fun getFragmentView() = R.layout.fragment_profile
 

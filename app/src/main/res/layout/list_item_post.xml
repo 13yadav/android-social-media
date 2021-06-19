@@ -101,7 +101,8 @@
             android:padding="4dp"
             android:src="@drawable/ic_comment"
             app:layout_constraintStart_toEndOf="@+id/ibLike"
-            app:layout_constraintTop_toBottomOf="@+id/tvPostText" />
+            app:layout_constraintTop_toBottomOf="@+id/tvPostText"
+            app:tint="@color/secondaryText" />
 
         <ImageButton
             android:id="@+id/ibDeletePost"
@@ -112,7 +113,8 @@
             android:src="@drawable/ic_delete"
             app:layout_constraintBottom_toBottomOf="@+id/ivAuthorProfileImage"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/ivAuthorProfileImage" />
+            app:layout_constraintTop_toTopOf="@+id/ivAuthorProfileImage"
+            app:tint="@color/secondaryText" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
