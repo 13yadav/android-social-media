@@ -4,14 +4,15 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ProgressBar
 import android.widget.TextView
 import androidx.core.view.isVisible
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.RequestManager
+import com.facebook.shimmer.ShimmerFrameLayout
 import com.google.firebase.auth.FirebaseAuth
 import com.strangecoder.socialmedia.R
 import com.strangecoder.socialmedia.other.EventObserver
@@ -34,11 +35,14 @@ abstract class BasePostFragment<T : ViewDataBinding> : Fragment() {
     @Inject
     lateinit var postsAdapter: PostsAdapter
 
-    protected abstract val postProgressBar: ProgressBar
+    protected abstract val shimmerLayout: ShimmerFrameLayout
+
+    protected abstract val recyclerView: RecyclerView
+
+    protected abstract val errorTextView: TextView
 
     protected abstract val basePostViewModel: BasePostViewModel
 
-    protected abstract val errorTextView: TextView
 
     private var currentLikedIndex: Int? = null
 
@@ -157,22 +161,35 @@ abstract class BasePostFragment<T : ViewDataBinding> : Fragment() {
 
         basePostViewModel.posts.observe(viewLifecycleOwner, EventObserver(
             onError = {
-                postProgressBar.isVisible = false
+                shimmerLayout.stopShimmer()
+                shimmerLayout.isVisible = false
                 errorTextView.isVisible = true
                 snackBar(it)
             },
             onLoading = {
+                shimmerLayout.isVisible = true
                 errorTextView.isVisible = false
-                postProgressBar.isVisible = true
             }
         ) { posts ->
             if (posts.isEmpty()) {
                 errorTextView.isVisible = true
             }
+            shimmerLayout.stopShimmer()
+            shimmerLayout.isVisible = false
+            recyclerView.isVisible = true
             errorTextView.isVisible = false
-            postProgressBar.isVisible = false
             postsAdapter.posts = posts
         })
+    }
+
+    override fun onResume() {
+        super.onResume()
+        shimmerLayout.startShimmer()
+    }
+
+    override fun onPause() {
+        super.onPause()
+        shimmerLayout.stopShimmer()
     }
 
 }

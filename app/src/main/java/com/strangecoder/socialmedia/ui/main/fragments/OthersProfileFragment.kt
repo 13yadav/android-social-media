@@ -21,8 +21,6 @@ class OthersProfileFragment : ProfileFragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setHasOptionsMenu(false)
-        enterTransition = MaterialSharedAxis(MaterialSharedAxis.X, true)
-        exitTransition = MaterialSharedAxis(MaterialSharedAxis.X, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

@@ -9,5 +9,6 @@
     <color name="secondaryLightColor">#ffe386</color>
     <color name="secondaryDarkColor">#c88127</color>
     <color name="secondaryText">#909090</color>
+    <color name="colorGrey">#dddddd</color>
 
 </resources>
