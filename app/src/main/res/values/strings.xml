@@ -52,4 +52,7 @@
     <string name="message">message</string>
     <string name="no_posts">follow someone to view posts here</string>
     <string name="no_posts_profile">No Posts</string>
+    <string name="discard">discard</string>
+    <string name="comment">comment</string>
+    <string name="following">following</string>
 </resources>

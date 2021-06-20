@@ -1,17 +1,15 @@
-package com.strangecoder.socialmedia.ui.main.dialogs
+package com.strangecoder.socialmedia.ui.main.fragments
 
-import android.app.Dialog
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.isVisible
-import androidx.fragment.app.DialogFragment
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.bumptech.glide.RequestManager
-import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.firebase.auth.FirebaseAuth
 import com.strangecoder.socialmedia.R
 import com.strangecoder.socialmedia.databinding.FragmentCommentBinding
@@ -24,7 +22,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class CommentDialog : DialogFragment() {
+class CommentFragment : Fragment() {
 
     private var _binding: FragmentCommentBinding? = null
     private val binding get() = _binding!!
@@ -35,7 +33,7 @@ class CommentDialog : DialogFragment() {
     @Inject
     lateinit var commentAdapter: CommentAdapter
 
-    private val args: CommentDialogArgs by navArgs()
+    private val args: CommentFragmentArgs by navArgs()
 
     private val viewModel: CommentViewModel by viewModels()
 
@@ -44,16 +42,8 @@ class CommentDialog : DialogFragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-//        _binding = FragmentCommentBinding.inflate(inflater, container, false)
+        _binding = FragmentCommentBinding.inflate(inflater, container, false)
         return binding.root
-    }
-
-    override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
-        _binding = FragmentCommentBinding.inflate(LayoutInflater.from(requireContext()))
-        return MaterialAlertDialogBuilder(requireContext())
-            .setTitle(R.string.comments)
-            .setView(binding.root)
-            .create()
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -76,7 +66,7 @@ class CommentDialog : DialogFragment() {
                 return@setOnUserClickListener
             }
             findNavController().navigate(
-                CommentDialogDirections.actionGlobalToOthersProfileFragment(comment.uid)
+                CommentFragmentDirections.actionGlobalToOthersProfileFragment(comment.uid)
             )
         }
     }

@@ -8,8 +8,9 @@
 
     <com.google.android.material.imageview.ShapeableImageView
         android:id="@+id/ivCommentUserProfilePicture"
-        android:layout_width="30dp"
-        android:layout_height="30dp"
+        android:layout_width="34dp"
+        android:layout_height="34dp"
+        android:scaleType="centerCrop"
         android:src="@drawable/img_logo"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -19,9 +20,9 @@
         android:id="@+id/tvCommentUsername"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:textSize="20sp"
-        app:layout_constraintBottom_toBottomOf="@+id/ivCommentUserProfilePicture"
+        android:layout_marginStart="16dp"
+        android:fontFamily="@font/nunito_semibold"
+        app:fontFamily="@font/nunito_semibold"
         app:layout_constraintEnd_toStartOf="@+id/ibDeleteComment"
         app:layout_constraintStart_toEndOf="@+id/ivCommentUserProfilePicture"
         app:layout_constraintTop_toTopOf="parent"
@@ -31,24 +32,29 @@
         android:id="@+id/tvComment"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="4dp"
         android:text="@string/example_post_text"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/ivCommentUserProfilePicture" />
+        app:layout_constraintStart_toEndOf="@+id/ivCommentUserProfilePicture"
+        app:layout_constraintTop_toBottomOf="@+id/tvCommentUsername" />
 
     <ImageButton
         android:id="@+id/ibDeleteComment"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@android:color/transparent"
+        android:contentDescription="delete button"
+        android:minWidth="48dp"
+        android:minHeight="48dp"
+        android:padding="10dp"
         android:src="@drawable/ic_delete"
         android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="@+id/tvCommentUsername"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@+id/tvCommentUsername"
         app:tint="@color/secondaryText"
+        tools:ignore="TouchTargetSizeCheck"
         tools:visibility="visible" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

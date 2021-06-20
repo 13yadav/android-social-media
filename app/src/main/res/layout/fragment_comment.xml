@@ -4,8 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/rootLayout"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:padding="8dp">
+    android:layout_height="match_parent">
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvComments"
@@ -13,6 +12,7 @@
         android:layout_height="0dp"
         android:clipToPadding="false"
         android:orientation="vertical"
+        android:padding="8dp"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:layout_constraintBottom_toTopOf="@+id/tilComment"
         app:layout_constraintEnd_toEndOf="parent"
@@ -56,13 +56,12 @@
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/btnComment"
-        style="@style/Widget.MaterialComponents.Button"
+        style="@style/TextStyleSemiBold"
         android:layout_width="80dp"
         android:layout_height="wrap_content"
         android:padding="0dp"
-        android:text="comment"
+        android:text="@string/comment"
         android:textAllCaps="false"
-        android:textFontWeight="600"
         android:textSize="12sp"
         app:layout_constraintBottom_toBottomOf="@+id/tilComment"
         app:layout_constraintEnd_toEndOf="parent"

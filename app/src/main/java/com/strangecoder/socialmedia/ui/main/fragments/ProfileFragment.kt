@@ -86,6 +86,17 @@ open class ProfileFragment : BasePostFragment<FragmentProfileBinding>() {
                 if (user.bio.isEmpty()) requireContext().getString(R.string.no_description)
                 else user.bio
             glide.load(user.profilePictureUrl).into(binding.ivProfileImage)
+            binding.followingCount.text = user.follows.size.toString()
+            binding.followingCount.setOnClickListener {
+                findNavController().navigate(
+                    ProfileFragmentDirections.globalToFollowingFragment(user.uid)
+                )
+            }
+            binding.followingLabel.setOnClickListener {
+                findNavController().navigate(
+                    ProfileFragmentDirections.globalToFollowingFragment(user.uid)
+                )
+            }
         })
     }
 

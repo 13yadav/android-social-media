@@ -94,7 +94,7 @@ abstract class BasePostFragment<T : ViewDataBinding> : Fragment() {
 
         postsAdapter.setOnCommentsClickListener { comment ->
             findNavController().navigate(
-                R.id.globalActionToCommentDialog,
+                R.id.globalActionToCommentFragment,
                 Bundle().apply { putString("postId", comment.id) }
             )
         }

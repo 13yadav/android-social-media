@@ -2,6 +2,7 @@ package com.strangecoder.socialmedia.ui.main.adapters
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.core.view.isVisible
 import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
@@ -57,6 +58,8 @@ class UserAdapter @Inject constructor(
         fun bind(user: User) {
             glide.load(user.profilePictureUrl).into(binding.ivProfileImage)
             binding.tvUsername.text = user.username
+            if (user.bio.isNotBlank()) binding.tvBio.text = user.bio
+            else binding.tvBio.isVisible = false
         }
     }
 

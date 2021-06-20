@@ -68,12 +68,12 @@
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/btnUpdateProfile"
+        style="@style/TextStyleSemiBold"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:text="@string/update_profile"
         android:textAllCaps="false"
-        android:textFontWeight="600"
         android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -84,8 +84,8 @@
         android:id="@+id/edit_profile_progress_bar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
         android:layout_marginTop="16dp"
+        android:layout_marginEnd="8dp"
         android:visibility="gone"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

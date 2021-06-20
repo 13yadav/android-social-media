@@ -41,4 +41,14 @@
         <item name="background">?attr/colorPrimaryDark</item>
     </style>
 
+    <style name="TextStyleBold">
+        <item name="fontFamily">@font/nunito_bold</item>
+        <item name="android:fontFamily">@font/nunito_bold</item>
+    </style>
+
+    <style name="TextStyleSemiBold">
+        <item name="fontFamily">@font/nunito_semibold</item>
+        <item name="android:fontFamily">@font/nunito_semibold</item>
+    </style>
+
 </resources>

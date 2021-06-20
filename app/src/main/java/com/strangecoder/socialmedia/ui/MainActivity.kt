@@ -53,7 +53,6 @@ class MainActivity : AppCompatActivity() {
                 || id == R.id.searchFragment
                 || id == R.id.messagesFragment
                 || id == R.id.profileFragment
-                || id == R.id.commentDialog
             ) {
                 binding.bottomNavBar.isVisible = true
                 binding.toolbar.isVisible = true
