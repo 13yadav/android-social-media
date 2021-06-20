@@ -3,9 +3,9 @@ package com.strangecoder.socialmedia.ui.main.fragments
 import android.os.Bundle
 import android.view.View
 import android.widget.Button
-import android.widget.ProgressBar
 import android.widget.TextView
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.facebook.shimmer.ShimmerFrameLayout
 import com.strangecoder.socialmedia.R
@@ -41,6 +41,10 @@ class HomeFragment : BasePostFragment<FragmentHomeBinding>() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setUpRecyclerView()
+
+        binding.btnDiscoverPeople.setOnClickListener {
+            findNavController().navigate(R.id.action_homeFragment_to_discoverFragment)
+        }
     }
 
     private fun setUpRecyclerView() = binding.rvAllPosts.apply {

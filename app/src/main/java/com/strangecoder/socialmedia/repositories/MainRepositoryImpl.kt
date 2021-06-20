@@ -48,6 +48,13 @@ class MainRepositoryImpl @Inject constructor() : MainRepository {
         }
     }
 
+    override suspend fun getAllUsers() = withContext(Dispatchers.IO) {
+        safeCall {
+            val userResults = users.get().await().toObjects(User::class.java)
+            Resource.Success(userResults)
+        }
+    }
+
     override suspend fun getUsers(uids: List<String>) = withContext(Dispatchers.IO) {
         safeCall {
             val chunks = uids.chunked(10)

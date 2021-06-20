@@ -38,7 +38,11 @@
     <fragment
         android:id="@+id/homeFragment"
         android:name="com.strangecoder.socialmedia.ui.main.fragments.HomeFragment"
-        android:label="Home" />
+        android:label="Home" >
+        <action
+            android:id="@+id/action_homeFragment_to_discoverFragment"
+            app:destination="@id/discoverFragment" />
+    </fragment>
     <fragment
         android:id="@+id/createPostFragment"
         android:name="com.strangecoder.socialmedia.ui.main.fragments.CreatePostFragment"
@@ -111,4 +115,8 @@
     <action
         android:id="@+id/globalToFollowingFragment"
         app:destination="@id/followingFragment" />
+    <fragment
+        android:id="@+id/discoverFragment"
+        android:name="com.strangecoder.socialmedia.ui.main.fragments.DiscoverFragment"
+        android:label="Discover People" />
 </navigation>
