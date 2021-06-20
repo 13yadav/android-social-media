@@ -1,9 +1,11 @@
 package com.strangecoder.socialmedia.ui.main.fragments.base
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.TextView
 import androidx.core.view.isVisible
 import androidx.databinding.DataBindingUtil
@@ -40,6 +42,8 @@ abstract class BasePostFragment<T : ViewDataBinding> : Fragment() {
     protected abstract val recyclerView: RecyclerView
 
     protected abstract val errorTextView: TextView
+
+    protected abstract val btnDiscover: Button
 
     protected abstract val basePostViewModel: BasePostViewModel
 
@@ -164,21 +168,30 @@ abstract class BasePostFragment<T : ViewDataBinding> : Fragment() {
                 shimmerLayout.stopShimmer()
                 shimmerLayout.isVisible = false
                 errorTextView.isVisible = true
+                btnDiscover.isVisible = true
                 snackBar(it)
             },
             onLoading = {
                 shimmerLayout.isVisible = true
                 errorTextView.isVisible = false
+                btnDiscover.isVisible = false
             }
         ) { posts ->
-            if (posts.isEmpty()) {
+            Log.d("rrLOG", posts.size.toString())
+            if (posts.isNotEmpty()) {
+                shimmerLayout.stopShimmer()
+                shimmerLayout.isVisible = false
+                errorTextView.isVisible = false
+                btnDiscover.isVisible = false
+                recyclerView.isVisible = true
+                postsAdapter.posts = posts
+            } else {
+                shimmerLayout.stopShimmer()
+                shimmerLayout.isVisible = false
+                recyclerView.isVisible = false
                 errorTextView.isVisible = true
+                btnDiscover.isVisible = true
             }
-            shimmerLayout.stopShimmer()
-            shimmerLayout.isVisible = false
-            recyclerView.isVisible = true
-            errorTextView.isVisible = false
-            postsAdapter.posts = posts
         })
     }
 

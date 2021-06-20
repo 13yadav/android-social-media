@@ -5,6 +5,7 @@ import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
+import android.widget.Button
 import android.widget.TextView
 import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
@@ -38,6 +39,9 @@ open class ProfileFragment : BasePostFragment<FragmentProfileBinding>() {
 
     override val errorTextView: TextView
         get() = binding.tvError
+
+    override val btnDiscover: Button
+        get() = binding.btnDiscover
 
     override fun getFragmentView() = R.layout.fragment_profile
 
@@ -76,15 +80,11 @@ open class ProfileFragment : BasePostFragment<FragmentProfileBinding>() {
 
     private fun subscribeToObservers() {
         viewModel.profileMeta.observe(viewLifecycleOwner, EventObserver(
-            onLoading = {
-//                binding.profilePostsProgressBar.isVisible = true
-            },
+            onLoading = {},
             onError = {
-//                binding.profilePostsProgressBar.isVisible = false
                 snackBar(it)
             }
         ) { user ->
-//            binding.profilePostsProgressBar.isVisible = false
             binding.tvUsername.text = user.username
             binding.tvProfileDescription.text =
                 if (user.bio.isEmpty()) requireContext().getString(R.string.no_description)
