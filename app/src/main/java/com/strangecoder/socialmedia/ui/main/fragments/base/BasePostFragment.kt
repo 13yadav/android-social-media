@@ -1,7 +1,6 @@
 package com.strangecoder.socialmedia.ui.main.fragments.base
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -29,7 +28,8 @@ import javax.inject.Inject
 
 abstract class BasePostFragment<T : ViewDataBinding> : Fragment() {
 
-    protected lateinit var binding: T
+    private var _binding: T? = null
+    protected val binding get() = _binding!!
 
     @Inject
     lateinit var glide: RequestManager
@@ -47,7 +47,6 @@ abstract class BasePostFragment<T : ViewDataBinding> : Fragment() {
 
     protected abstract val basePostViewModel: BasePostViewModel
 
-
     private var currentLikedIndex: Int? = null
 
     override fun onCreateView(
@@ -55,7 +54,7 @@ abstract class BasePostFragment<T : ViewDataBinding> : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        binding = DataBindingUtil.inflate(
+        _binding = DataBindingUtil.inflate(
             inflater,
             getFragmentView(),
             container,
@@ -169,7 +168,7 @@ abstract class BasePostFragment<T : ViewDataBinding> : Fragment() {
                 shimmerLayout.isVisible = false
                 errorTextView.isVisible = true
                 btnDiscover.isVisible = true
-                snackBar(it)
+//                snackBar(it)
             },
             onLoading = {
                 shimmerLayout.isVisible = true
@@ -177,7 +176,6 @@ abstract class BasePostFragment<T : ViewDataBinding> : Fragment() {
                 btnDiscover.isVisible = false
             }
         ) { posts ->
-            Log.d("rrLOG", posts.size.toString())
             if (posts.isNotEmpty()) {
                 shimmerLayout.stopShimmer()
                 shimmerLayout.isVisible = false
@@ -203,6 +201,11 @@ abstract class BasePostFragment<T : ViewDataBinding> : Fragment() {
     override fun onPause() {
         super.onPause()
         shimmerLayout.stopShimmer()
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        _binding = null
     }
 
 }

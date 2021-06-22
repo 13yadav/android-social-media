@@ -76,12 +76,15 @@ class SearchFragment : Fragment() {
         viewModel.searchResults.observe(viewLifecycleOwner, EventObserver(
             onError = {
                 binding.searchProgressBar.isVisible = false
+                binding.rvSearchResults.isVisible = false
                 snackBar(it)
             },
             onLoading = {
+                binding.rvSearchResults.isVisible = false
                 binding.searchProgressBar.isVisible = true
             }
         ) { users ->
+            binding.rvSearchResults.isVisible = true
             binding.searchProgressBar.isVisible = false
             userAdapter.users = users
         })

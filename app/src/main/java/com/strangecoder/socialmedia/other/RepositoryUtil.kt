@@ -7,7 +7,6 @@ inline fun <T> safeCall(action: () -> Resource<T>): Resource<T> {
         action()
     } catch (th: Throwable) {
         Log.e("rrLOG", th.toString())
-        Log.e("rrLOG", th.message.toString())
         Resource.Error(th.localizedMessage ?: "An unknown error occurred!")
     }
 }

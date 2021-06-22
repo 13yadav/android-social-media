@@ -165,7 +165,8 @@ class MainRepositoryImpl @Inject constructor() : MainRepository {
     override suspend fun searchUser(query: String) = withContext(Dispatchers.IO) {
         safeCall {
             val userResults =
-                users.whereGreaterThanOrEqualTo("username", query.uppercase(Locale.ROOT))
+//                users.whereGreaterThanOrEqualTo("username", query.uppercase(Locale.ROOT))
+                users.whereGreaterThanOrEqualTo("username", query)
                     .get()
                     .await()
                     .toObjects(User::class.java)
