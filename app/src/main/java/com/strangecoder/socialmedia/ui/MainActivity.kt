@@ -39,7 +39,7 @@ class MainActivity : AppCompatActivity() {
         val navGraphIds = setOf(
             R.id.homeFragment,
             R.id.searchFragment,
-            R.id.messagesFragment,
+            R.id.chatsFragment,
             R.id.profileFragment
         )
 
@@ -51,7 +51,7 @@ class MainActivity : AppCompatActivity() {
 
             if (id == R.id.homeFragment
                 || id == R.id.searchFragment
-                || id == R.id.messagesFragment
+                || id == R.id.chatsFragment
                 || id == R.id.profileFragment
             ) {
                 binding.bottomNavBar.isVisible = true

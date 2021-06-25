@@ -1,10 +1,7 @@
 package com.strangecoder.socialmedia.repositories
 
 import android.net.Uri
-import com.strangecoder.socialmedia.data.entities.Comment
-import com.strangecoder.socialmedia.data.entities.Post
-import com.strangecoder.socialmedia.data.entities.ProfileUpdate
-import com.strangecoder.socialmedia.data.entities.User
+import com.strangecoder.socialmedia.data.entities.*
 import com.strangecoder.socialmedia.other.Resource
 
 interface MainRepository {
@@ -38,4 +35,16 @@ interface MainRepository {
     suspend fun updateProfile(profileUpdate: ProfileUpdate): Resource<Any>
 
     suspend fun updateProfilePicture(uid: String, imageUri: Uri): Uri?
+
+    suspend fun sendMessage(message: Message): Resource<Message>
+
+    suspend fun loadMessages(idFrom: String, idTo: String): Resource<List<Message>>
+
+    suspend fun updateLastMessage(
+        idFrom: String,
+        idTo: String,
+        lastMessage: LastMessage
+    ): Resource<Any>
+
+    suspend fun getLastMessage(idFrom: String, idTo: String): Resource<LastMessage>
 }

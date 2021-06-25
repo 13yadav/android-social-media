@@ -6,12 +6,10 @@ import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.Query
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.ktx.storage
-import com.strangecoder.socialmedia.data.entities.Comment
-import com.strangecoder.socialmedia.data.entities.Post
-import com.strangecoder.socialmedia.data.entities.ProfileUpdate
-import com.strangecoder.socialmedia.data.entities.User
+import com.strangecoder.socialmedia.data.entities.*
 import com.strangecoder.socialmedia.other.Constants.DEFAULT_PROFILE_PICTURE_URL
 import com.strangecoder.socialmedia.other.Resource
+import com.strangecoder.socialmedia.other.getConversationId
 import com.strangecoder.socialmedia.other.safeCall
 import dagger.hilt.android.scopes.ViewModelScoped
 import kotlinx.coroutines.Dispatchers
@@ -29,6 +27,7 @@ class MainRepositoryImpl @Inject constructor() : MainRepository {
     private val users = firestore.collection("users")
     private val posts = firestore.collection("posts")
     private val comments = firestore.collection("comments")
+    private val chats = firestore.collection("chats")
 
     override suspend fun createPost(imageUri: Uri, text: String) = withContext(Dispatchers.IO) {
         safeCall {
@@ -165,8 +164,7 @@ class MainRepositoryImpl @Inject constructor() : MainRepository {
     override suspend fun searchUser(query: String) = withContext(Dispatchers.IO) {
         safeCall {
             val userResults =
-//                users.whereGreaterThanOrEqualTo("username", query.uppercase(Locale.ROOT))
-                users.whereGreaterThanOrEqualTo("username", query)
+                users.whereGreaterThanOrEqualTo("username", query.uppercase(Locale.ROOT))
                     .get()
                     .await()
                     .toObjects(User::class.java)
@@ -244,4 +242,43 @@ class MainRepositoryImpl @Inject constructor() : MainRepository {
                 Resource.Success(Any())
             }
         }
+
+    override suspend fun sendMessage(message: Message) =
+        withContext(Dispatchers.IO) {
+            safeCall {
+                val idFrom = auth.uid!!
+                val chatID = getConversationId(idFrom, message.idTo)
+                chats.document(chatID)
+                    .collection(chatID)
+                    .add(message).await()
+                Resource.Success(message)
+            }
+        }
+
+    override suspend fun loadMessages(idFrom: String, idTo: String) = withContext(Dispatchers.IO) {
+        safeCall {
+            val messages = mutableListOf<Message>()
+            val chatID = getConversationId(idFrom, idTo)
+            val result = chats.document(chatID)
+                .collection(chatID)
+                .orderBy("timestamp", Query.Direction.DESCENDING)
+                .get()
+                .await()
+                .toObjects(Message::class.java)
+            messages.addAll(result)
+            Resource.Success(messages.toList())
+        }
+    }
+
+    override suspend fun updateLastMessage(
+        idFrom: String,
+        idTo: String,
+        lastMessage: LastMessage
+    ): Resource<Any> {
+        TODO("Not yet implemented")
+    }
+
+    override suspend fun getLastMessage(idFrom: String, idTo: String): Resource<LastMessage> {
+        TODO("Not yet implemented")
+    }
 }

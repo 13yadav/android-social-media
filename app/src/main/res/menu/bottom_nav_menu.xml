@@ -14,7 +14,7 @@
         android:icon="@drawable/ic_add"
         android:title="@string/add_post" />
     <item
-        android:id="@+id/messagesFragment"
+        android:id="@+id/chatsFragment"
         android:icon="@drawable/selector_chats"
         android:title="@string/chats" />
     <item
