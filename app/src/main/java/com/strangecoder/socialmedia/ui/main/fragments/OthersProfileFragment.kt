@@ -3,8 +3,9 @@ package com.strangecoder.socialmedia.ui.main.fragments
 import android.os.Bundle
 import android.view.View
 import androidx.core.view.isVisible
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
-import com.google.android.material.transition.MaterialSharedAxis
+import com.strangecoder.socialmedia.AuthNavGraphDirections
 import com.strangecoder.socialmedia.R
 import com.strangecoder.socialmedia.data.entities.User
 import com.strangecoder.socialmedia.other.EventObserver
@@ -32,6 +33,9 @@ class OthersProfileFragment : ProfileFragment() {
         subscribeToObservers()
         binding.btnToggleFollow.setOnClickListener {
             viewModel.toggleFollowForUser(uid)
+        }
+        binding.btnMessage.setOnClickListener {
+            findNavController().navigate(AuthNavGraphDirections.actionGlobalToChattingFragment(uid))
         }
     }
 

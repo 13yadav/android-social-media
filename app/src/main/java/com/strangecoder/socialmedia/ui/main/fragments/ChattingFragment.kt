@@ -8,11 +8,15 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.Query
 import com.strangecoder.socialmedia.data.entities.Message
 import com.strangecoder.socialmedia.databinding.FragmentChattingBinding
 import com.strangecoder.socialmedia.other.EventObserver
+import com.strangecoder.socialmedia.other.getConversationId
 import com.strangecoder.socialmedia.ui.main.adapters.MessagesAdapter
 import com.strangecoder.socialmedia.ui.main.viewmodels.ChatsViewModel
+import com.strangecoder.socialmedia.ui.viewutils.snackBar
 import dagger.hilt.android.AndroidEntryPoint
 import java.util.*
 import javax.inject.Inject
@@ -24,6 +28,9 @@ class ChattingFragment : Fragment() {
     private val binding get() = _binding!!
 
     private val viewModel: ChatsViewModel by viewModels()
+
+    private val firestore = FirebaseFirestore.getInstance()
+    private val chats = firestore.collection("chats")
 
     @Inject
     lateinit var messagesAdapter: MessagesAdapter
@@ -65,26 +72,40 @@ class ChattingFragment : Fragment() {
     }
 
     private fun subscribeToObservers() {
-        viewModel.sentMessageStatus.observe(viewLifecycleOwner, EventObserver(
-            onLoading = {
-                //
-            },
-            onError = {
-                //
-            }
-        ) { message ->
+        viewModel.sentMessageStatus.observe(viewLifecycleOwner, EventObserver { message ->
             messagesAdapter.messages += message
         })
 
-        viewModel.messagesList.observe(viewLifecycleOwner, EventObserver(
-            onLoading = {
-
-            },
-            onError = {
-
-            }
-        ) { messages ->
+        viewModel.messagesList.observe(viewLifecycleOwner, EventObserver { messages ->
             messagesAdapter.messages += messages
+
+            val chatID = getConversationId(currentUserID, args.uid)
+            chats.document(chatID)
+                .collection(chatID)
+                .orderBy("timestamp", Query.Direction.DESCENDING)
+                .addSnapshotListener { value, error ->
+                    if (error != null && error.localizedMessage != null) {
+                        snackBar(error.localizedMessage!!)
+                        return@addSnapshotListener
+                    }
+                    value?.let {
+//                        it.documents.forEach { document ->
+//                            val message = document.toObject(Message::class.java)
+//                            newMessages.add(message!!)
+//                            messagesAdapter.messages += message!!
+//                        }
+                        viewModel.loadMessages(currentUserID, args.uid)
+                        viewModel.messagesList.observe(
+                            viewLifecycleOwner,
+                            EventObserver { messages ->
+                                messagesAdapter.apply {
+                                    this.messages = messages
+                                    this.notifyDataSetChanged()
+                                }
+                            })
+                        binding.messages.smoothScrollToPosition(0)
+                    }
+                }
         })
     }
 

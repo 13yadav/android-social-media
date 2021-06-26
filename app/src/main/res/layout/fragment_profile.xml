@@ -84,7 +84,7 @@
                 android:layout_marginTop="20dp"
                 android:layout_marginEnd="8dp"
                 android:fontFamily="@font/nunito_semibold"
-                android:text="@string/unfollow"
+                android:text="@string/follow"
                 android:textAllCaps="false"
                 app:fontFamily="@font/nunito_semibold"
                 app:layout_constraintEnd_toStartOf="@+id/btnMessage"
