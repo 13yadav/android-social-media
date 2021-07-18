@@ -10,10 +10,11 @@ import com.google.firebase.auth.FirebaseAuth
 import com.strangecoder.socialmedia.data.entities.Message
 import com.strangecoder.socialmedia.databinding.ListItemOthersMessageBinding
 import com.strangecoder.socialmedia.databinding.ListItemSelfMessageBinding
+import java.text.SimpleDateFormat
+import java.util.*
 import javax.inject.Inject
 
-class MessagesAdapter @Inject constructor() :
-    RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+class MessagesAdapter @Inject constructor() : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     private val TYPE_OWN = 0
     private val TYPE_OTHER = 1
@@ -71,22 +72,25 @@ class MessagesAdapter @Inject constructor() :
     class OwnMessageViewHolder(
         val binding: ListItemSelfMessageBinding,
     ) : RecyclerView.ViewHolder(binding.root) {
-
+        val sdf = SimpleDateFormat("hh:mm a", Locale.ENGLISH)
         fun bind(message: Message) {
             binding.textMessage.text = message.content
             binding.messageTime.isVisible = false
-            binding.messageTime.text = message.timestamp
+//            val time = sdf.format(message.timestamp.toLong())
+//            binding.messageTime.text = time
         }
     }
 
     class OthersMessageViewHolder(
         val binding: ListItemOthersMessageBinding,
     ) : RecyclerView.ViewHolder(binding.root) {
+        val sdf = SimpleDateFormat("hh:mm a", Locale.ENGLISH)
 
         fun bind(message: Message) {
             binding.textMessage.text = message.content
             binding.messageTime.isVisible = false
-            binding.messageTime.text = message.timestamp
+//            val time = sdf.format(message.timestamp.toLong())
+//            binding.messageTime.text = time
         }
     }
 }
