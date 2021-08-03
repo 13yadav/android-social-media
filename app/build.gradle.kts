@@ -7,15 +7,15 @@ plugins {
 }
 
 android {
-    compileSdkVersion(Application.compileSdkVersion)
+    compileSdk = 31
 
     defaultConfig {
-        applicationId = Application.applicationId
-        minSdkVersion(Application.minSdkVersion)
-        targetSdkVersion(Application.targetSdkVersion)
-        versionCode = Application.versionCode
-        versionName = Application.versionName
-        testInstrumentationRunner = Application.testInstrumentationRunner
+        applicationId = "com.strangecoder.socialmedia"
+        minSdk = 21
+        targetSdk = 31
+        versionCode = 1
+        versionName = "1.0"
+        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
     buildTypes {
@@ -42,39 +42,66 @@ android {
 
 dependencies {
     implementation(fileTree(mapOf("dir" to "libs", "include" to listOf("*.jar"))))
-    implementation(Dependencies.Kotlin.kotlin_stdlib)
-    implementation("androidx.core:core-ktx:${Versions.coreKtx}")
-    implementation("androidx.appcompat:appcompat:${Versions.appCompat}")
-    implementation("com.google.android.material:material:${Versions.materialTheme}")
-    implementation("androidx.constraintlayout:constraintlayout:${Versions.constraintLayout}")
-    implementation(platform("com.google.firebase:firebase-bom:${Versions.firebaseBom}"))
+
+    // kotlin
+    implementation("org.jetbrains.kotlin:kotlin-stdlib:1.5.21")
+
+    // core libs
+    implementation("androidx.core:core-ktx:1.6.0")
+    implementation("androidx.appcompat:appcompat:1.3.1")
+    implementation("androidx.activity:activity-ktx:1.3.0")
+    implementation("androidx.fragment:fragment-ktx:1.3.6")
+    implementation("androidx.constraintlayout:constraintlayout:2.1.0")
+
+    // material design
+    implementation("com.google.android.material:material:1.4.0")
+
+    //firebase
+    implementation(platform("com.google.firebase:firebase-bom:28.0.1"))
     implementation("com.google.firebase:firebase-analytics-ktx")
     implementation("com.google.firebase:firebase-auth-ktx")
     implementation("com.google.firebase:firebase-firestore-ktx")
     implementation("com.google.firebase:firebase-storage-ktx")
     implementation("com.google.firebase:firebase-database-ktx")
-    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-play-services:${Versions.coroutinesPlayServices}")
-    implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:${Versions.androidxLifecycle}")
-    implementation("androidx.lifecycle:lifecycle-livedata-ktx:${Versions.androidxLifecycle}")
-    implementation("androidx.lifecycle:lifecycle-runtime-ktx:${Versions.androidxLifecycle}")
-    implementation("androidx.navigation:navigation-fragment-ktx:${Versions.navigation}")
-    implementation("androidx.navigation:navigation-ui-ktx:${Versions.navigation}")
-    implementation("com.github.bumptech.glide:glide:${Versions.glide}")
-    kapt("com.github.bumptech.glide:compiler:${Versions.glide}")
-    implementation("com.squareup.retrofit2:retrofit:${Versions.retrofit}")
-    implementation("com.squareup.retrofit2:converter-gson:${Versions.retrofit}")
-    implementation("com.jakewharton.retrofit:retrofit2-kotlin-coroutines-adapter:${Versions.retrofitCoroutinesAdapter}")
-    implementation("androidx.activity:activity-ktx:${Versions.activity}")
-    implementation("androidx.fragment:fragment-ktx:${Versions.fragment}")
-    implementation("com.google.dagger:hilt-android:${Versions.hilt}")
-    kapt("com.google.dagger:hilt-compiler:${Versions.hilt}")
-    implementation("androidx.hilt:hilt-lifecycle-viewmodel:${Versions.hiltViewModel}")
-    kapt("androidx.hilt:hilt-compiler:${Versions.hiltCompiler}")
-    api("com.theartofdev.edmodo:android-image-cropper:${Versions.imageCropper}")
-    implementation("com.facebook.shimmer:shimmer:${Versions.facebookShimmer}")
-    testImplementation("junit:junit:${Versions.junit}")
-    androidTestImplementation("androidx.test.ext:junit:${Versions.junitExt}")
-    androidTestImplementation("androidx.test.espresso:espresso-core:${Versions.espresso}")
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-play-services:1.5.1-native-mt")
+
+    // lifecycle
+    implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.3.1")
+    implementation("androidx.lifecycle:lifecycle-livedata-ktx:2.3.1")
+    implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.3.1")
+
+    // navigation
+    implementation("androidx.navigation:navigation-fragment-ktx:2.3.5")
+    implementation("androidx.navigation:navigation-ui-ktx:2.3.5")
+
+    // glide
+    implementation("com.github.bumptech.glide:glide:4.12.0")
+    kapt("com.github.bumptech.glide:compiler:4.12.0")
+
+    // retrofit
+    implementation("com.squareup.retrofit2:retrofit:2.9.0")
+    implementation("com.squareup.retrofit2:converter-gson:2.9.0")
+    implementation("com.jakewharton.retrofit:retrofit2-kotlin-coroutines-adapter:0.9.2")
+
+    // hilt
+    implementation("com.google.dagger:hilt-android:2.38.1")
+    kapt("com.google.dagger:hilt-compiler:2.38.1")
+    implementation("androidx.hilt:hilt-lifecycle-viewmodel:1.0.0-alpha03")
+    kapt("androidx.hilt:hilt-compiler:1.0.0")
+
+    // image cropper
+    api("com.theartofdev.edmodo:android-image-cropper:2.8.0")
+
+    // shimmer
+    implementation("com.facebook.shimmer:shimmer:0.5.0")
+
+    // test deps
+    testImplementation("junit:junit:4.13.2")
+    androidTestImplementation("androidx.test.ext:junit:1.1.3")
+    androidTestImplementation("androidx.test.espresso:espresso-core:3.4.0")
+
+    // splash screen api
+    implementation("androidx.core:core-splashscreen:1.0.0-alpha01")
 }
 
 apply(plugin = "com.google.gms.google-services")
