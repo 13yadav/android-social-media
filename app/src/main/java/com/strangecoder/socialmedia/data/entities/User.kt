@@ -2,7 +2,7 @@ package com.strangecoder.socialmedia.data.entities
 
 import com.google.firebase.firestore.Exclude
 import com.google.firebase.firestore.IgnoreExtraProperties
-import com.strangecoder.socialmedia.other.Constants.DEFAULT_PROFILE_PICTURE_URL
+import com.strangecoder.socialmedia.commons.Constants.DEFAULT_PROFILE_PICTURE_URL
 
 @IgnoreExtraProperties
 data class User(

@@ -6,7 +6,7 @@
 
     <fragment
         android:id="@+id/loginFragment"
-        android:name="com.strangecoder.socialmedia.ui.auth.fragments.LoginFragment"
+        android:name="com.strangecoder.socialmedia.presentation.ui.auth.fragments.LoginFragment"
         android:label="Login">
         <action
             android:id="@+id/action_loginFragment_to_registerFragment"
@@ -23,7 +23,7 @@
     </fragment>
     <fragment
         android:id="@+id/registerFragment"
-        android:name="com.strangecoder.socialmedia.ui.auth.fragments.RegisterFragment"
+        android:name="com.strangecoder.socialmedia.presentation.ui.auth.fragments.RegisterFragment"
         android:label="Register">
         <action
             android:id="@+id/action_registerFragment_to_loginFragment"
@@ -36,7 +36,7 @@
     </fragment>
     <fragment
         android:id="@+id/homeFragment"
-        android:name="com.strangecoder.socialmedia.ui.main.fragments.HomeFragment"
+        android:name="com.strangecoder.socialmedia.presentation.ui.main.fragments.HomeFragment"
         android:label="Home">
         <action
             android:id="@+id/action_homeFragment_to_discoverFragment"
@@ -44,11 +44,11 @@
     </fragment>
     <fragment
         android:id="@+id/createPostFragment"
-        android:name="com.strangecoder.socialmedia.ui.main.fragments.CreatePostFragment"
+        android:name="com.strangecoder.socialmedia.presentation.ui.main.fragments.CreatePostFragment"
         android:label="Create Post" />
     <fragment
         android:id="@+id/editProfileFragment"
-        android:name="com.strangecoder.socialmedia.ui.main.fragments.EditProfileFragment"
+        android:name="com.strangecoder.socialmedia.presentation.ui.main.fragments.EditProfileFragment"
         android:label="Edit Profile">
         <action
             android:id="@+id/action_editProfileFragment_to_profileFragment"
@@ -58,15 +58,15 @@
     </fragment>
     <fragment
         android:id="@+id/chatsFragment"
-        android:name="com.strangecoder.socialmedia.ui.main.fragments.ChatListFragment"
+        android:name="com.strangecoder.socialmedia.presentation.ui.main.fragments.ChatListFragment"
         android:label="Chats" />
     <fragment
         android:id="@+id/searchFragment"
-        android:name="com.strangecoder.socialmedia.ui.main.fragments.SearchFragment"
+        android:name="com.strangecoder.socialmedia.presentation.ui.main.fragments.SearchFragment"
         android:label="Search" />
     <fragment
         android:id="@+id/profileFragment"
-        android:name="com.strangecoder.socialmedia.ui.main.fragments.ProfileFragment"
+        android:name="com.strangecoder.socialmedia.presentation.ui.main.fragments.ProfileFragment"
         android:label="Profile">
         <action
             android:id="@+id/action_profileFragment_to_loginFragment"
@@ -78,7 +78,7 @@
     </fragment>
     <fragment
         android:id="@+id/othersProfileFragment"
-        android:name="com.strangecoder.socialmedia.ui.main.fragments.OthersProfileFragment"
+        android:name="com.strangecoder.socialmedia.presentation.ui.main.fragments.OthersProfileFragment"
         android:label="User Profile">
         <argument
             android:name="uid"
@@ -89,7 +89,7 @@
         app:destination="@id/othersProfileFragment" />
     <fragment
         android:id="@+id/commentFragment"
-        android:name="com.strangecoder.socialmedia.ui.main.fragments.CommentFragment"
+        android:name="com.strangecoder.socialmedia.presentation.ui.main.fragments.CommentFragment"
         android:label="Comments">
         <argument
             android:name="postId"
@@ -105,7 +105,7 @@
         app:popUpToInclusive="true" />
     <fragment
         android:id="@+id/followingFragment"
-        android:name="com.strangecoder.socialmedia.ui.main.fragments.FollowingFragment"
+        android:name="com.strangecoder.socialmedia.presentation.ui.main.fragments.FollowingFragment"
         android:label="Following">
         <argument
             android:name="uid"
@@ -116,11 +116,11 @@
         app:destination="@id/followingFragment" />
     <fragment
         android:id="@+id/discoverFragment"
-        android:name="com.strangecoder.socialmedia.ui.main.fragments.DiscoverFragment"
+        android:name="com.strangecoder.socialmedia.presentation.ui.main.fragments.DiscoverFragment"
         android:label="Discover People" />
     <fragment
         android:id="@+id/chattingFragment"
-        android:name="com.strangecoder.socialmedia.ui.main.fragments.ChattingFragment"
+        android:name="com.strangecoder.socialmedia.presentation.ui.main.fragments.ChattingFragment"
         android:label="Chatting">
         <argument
             android:name="uid"

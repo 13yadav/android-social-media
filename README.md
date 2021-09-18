@@ -1,2 +1,10 @@
-# Social Media
-Social Media app following MVVM architecture and jetpack components
+# Strangam
+
+Strangam is a Social Media app. 
+
+It is implemented using:
+
+- MVVM architecture
+- Jetpack components
+- Firebase
+- Kotlin DSL
