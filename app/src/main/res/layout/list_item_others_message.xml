@@ -14,7 +14,7 @@
         android:layout_height="wrap_content"
         android:layout_marginVertical="4dp"
         android:minWidth="150dp"
-        app:cardBackgroundColor="@color/primaryColor"
+        app:cardBackgroundColor="@color/md_theme_light_primary"
         app:shapeAppearance="@style/ShapeAppearanceOverlay_MaterialCardView_Other">
 
         <androidx.constraintlayout.widget.ConstraintLayout

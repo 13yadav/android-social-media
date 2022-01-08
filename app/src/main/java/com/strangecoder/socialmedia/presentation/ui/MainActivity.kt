@@ -37,7 +37,6 @@ class MainActivity : AppCompatActivity() {
 
         binding.bottomNavBar.apply {
             setupWithNavController(navHostFragment.findNavController())
-            setOnNavigationItemReselectedListener {}
         }
 
         val navGraphIds = setOf(
@@ -51,23 +50,20 @@ class MainActivity : AppCompatActivity() {
         val appBarConfiguration = AppBarConfiguration(navGraphIds)
         binding.toolbar.setupWithNavController(navController, appBarConfiguration)
         navHostFragment.navController.addOnDestinationChangedListener { _, destination, _ ->
-            val id = destination.id
 
-            if (id == R.id.homeFragment
-                || id == R.id.searchFragment
-                || id == R.id.chatsFragment
-                || id == R.id.profileFragment
-            ) {
-                binding.bottomNavBar.isVisible = true
-                binding.toolbar.isVisible = true
-            } else if (id == R.id.loginFragment
-                || id == R.id.registerFragment
-            ) {
-                binding.bottomNavBar.isVisible = false
-                binding.toolbar.isVisible = false
-            } else {
-                binding.bottomNavBar.isVisible = false
-                binding.toolbar.isVisible = true
+            when (destination.id) {
+                R.id.homeFragment, R.id.searchFragment, R.id.chatsFragment, R.id.profileFragment -> {
+                    binding.bottomNavBar.isVisible = true
+                    binding.toolbar.isVisible = true
+                }
+                R.id.loginFragment, R.id.registerFragment -> {
+                    binding.bottomNavBar.isVisible = false
+                    binding.toolbar.isVisible = false
+                }
+                else -> {
+                    binding.bottomNavBar.isVisible = false
+                    binding.toolbar.isVisible = true
+                }
             }
         }
     }

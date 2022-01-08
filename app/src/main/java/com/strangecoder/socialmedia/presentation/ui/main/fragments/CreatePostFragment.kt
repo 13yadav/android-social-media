@@ -38,7 +38,7 @@ class CreatePostFragment : Fragment() {
     private lateinit var cropContent: ActivityResultLauncher<String>
 
     private val cropActivityResultContract = object : ActivityResultContract<String, Uri?>() {
-        override fun createIntent(context: Context, input: String?): Intent {
+        override fun createIntent(context: Context, input: String): Intent {
             return CropImage.activity()
                 .setAspectRatio(4, 3)
                 .setGuidelines(CropImageView.Guidelines.ON)

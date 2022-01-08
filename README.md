@@ -8,3 +8,4 @@ It is implemented using:
 - Jetpack components
 - Firebase
 - Kotlin DSL
+- Material Design 3
